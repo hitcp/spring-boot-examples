@@ -8,3 +8,5 @@
 ## spring-boot-rocketmq（Waiting）
 ## spring-boot-elasticsearch（Waiting）
 ## spring-boot-mongodb （Waiting）
+## spring-boot-zookeeper （Waiting）
+
