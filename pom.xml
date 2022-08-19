@@ -40,7 +40,7 @@
         <spring-boot-starter-data-redis.version>2.7.3</spring-boot-starter-data-redis.version>
         <spring-boot-starter-data-jpa.version>2.7.3</spring-boot-starter-data-jpa.version>
         <mysql-connector.version>8.0.16</mysql-connector.version>
-        <jest.version>5.3.3</jest.version>
+        <elasticsearch.searchbox.jest.version>5.3.3</elasticsearch.searchbox.jest.version>
     </properties>
 
     <!-- 依赖统一管理 -->
@@ -86,7 +86,7 @@
             <dependency>
                 <groupId>io.searchbox</groupId>
                 <artifactId>jest</artifactId>
-                <version>${jest.version}</version>
+                <version>${elasticsearch.searchbox.jest.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
