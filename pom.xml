@@ -15,7 +15,7 @@
         <module>spring-boot-webflux-examples</module>
         <module>spring-boot-mybatis-examples</module>
         <module>spring-boot-mybatis-plus-examples</module>
-        <module>spring-boot-redis-examples</module>
+        <module>spring-boot-redis-examples</module><module>spring-boot-elasticsearch-examples</module>
     </modules>
 
     <!-- 版本统一管理 -->
@@ -27,6 +27,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
         <spring-boot-starter-webflux.version>2.7.2</spring-boot-starter-webflux.version>
+        <spring-boot-starter-data-elasticsearch.version>2.7.3</spring-boot-starter-data-elasticsearch.version>
+        <spring-boot-starter-data-redis.version>2.7.3</spring-boot-starter-data-redis.version>
+        <spring-boot-starter-data-jpa.version>2.7.3</spring-boot-starter-data-jpa.version>
         <mysql-connector.version>8.0.16</mysql-connector.version>
     </properties>
 
@@ -35,20 +38,40 @@
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-web</artifactId>
+               <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-webflux</artifactId>
                 <version>${spring-boot-starter-webflux.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring-boot.version}</version>
-                <scope>test</scope>
+                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${spring-boot-starter-data-elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot-starter-data-redis.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                 <version>${spring-boot-starter-data-jpa.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

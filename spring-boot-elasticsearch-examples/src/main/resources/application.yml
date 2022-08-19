@@ -1,0 +1,6 @@
+server:
+  port: 8081
+# 服务端es地址
+spring:
+  elasticsearch:
+    uris: http://localhost:9200
