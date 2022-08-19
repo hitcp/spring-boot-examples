@@ -13,6 +13,9 @@
     <!-- 子工程模块 -->
     <modules>
         <module>spring-boot-webflux-examples</module>
+        <module>spring-boot-mybatis-examples</module>
+        <module>spring-boot-mybatis-plus-examples</module>
+        <module>spring-boot-redis-examples</module>
     </modules>
 
     <!-- 版本统一管理 -->
