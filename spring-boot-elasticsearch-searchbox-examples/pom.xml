@@ -5,7 +5,7 @@
     <parent>
         <artifactId>spring-boot-examples</artifactId>
         <groupId>org.microframework</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${rversion}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
