@@ -28,12 +28,11 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot-starter-parent.version>2.7.3</spring-boot-starter-parent.version>
         <spring-boot.version>2.7.3</spring-boot.version>
-        <spring-boot-starter-webflux.version>2.7.3</spring-boot-starter-webflux.version>
+<!--        <spring-boot-starter-webflux.version>2.7.3</spring-boot-starter-webflux.version>
         <spring-boot-starter-data-elasticsearch.version>2.7.3</spring-boot-starter-data-elasticsearch.version>
         <spring-boot-starter-data-redis.version>2.7.3</spring-boot-starter-data-redis.version>
-        <spring-boot-starter-data-jpa.version>2.7.3</spring-boot-starter-data-jpa.version>
+        <spring-boot-starter-data-jpa.version>2.7.3</spring-boot-starter-data-jpa.version>-->
         <mysql-connector.version>8.0.16</mysql-connector.version>
         <elasticsearch.searchbox.jest.version>5.3.3</elasticsearch.searchbox.jest.version>
     </properties>
@@ -41,10 +40,11 @@
     <!-- 依赖统一管理 -->
     <dependencyManagement>
         <dependencies>
+            <!-- TODO spring-boot-starter-parent作用？？ -->
              <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${spring-boot-starter-parent.version}</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
@@ -54,35 +54,30 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-               <groupId>org.springframework.boot</groupId>
-               <artifactId>spring-boot-starter-web</artifactId>
-               <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-webflux</artifactId>
-                <version>${spring-boot-starter-webflux.version}</version>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-                <version>${spring-boot-starter-data-elasticsearch.version}</version>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring-boot-starter-data-redis.version}</version>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
                 <scope>runtime</scope>
-            </dependency>
-             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-jpa</artifactId>
-                 <version>${spring-boot-starter-data-jpa.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.searchbox</groupId>
