@@ -19,7 +19,8 @@
         <module>spring-boot-elasticsearch-examples</module>
         <module>spring-boot-elasticsearch-searchbox-examples</module>
         <module>spring-boot-basis-examples</module>
-        <module>spring-boot-java8-examples</module><module>spring-boot-algorithm-examples</module>
+        <module>spring-boot-java8-examples</module>
+        <module>spring-boot-algorithm-examples</module>
     </modules>
 
     <!-- 版本统一管理 -->
@@ -42,6 +43,8 @@
         <mysql-connector.version>8.0.16</mysql-connector.version>
         <elasticsearch.searchbox.jest.version>5.3.3</elasticsearch.searchbox.jest.version>
         <mybatis.version>3.5.7</mybatis.version>
+        <apache-commons-lang3.version>3.12.0</apache-commons-lang3.version>
+        <google-guava.version>27.1-jre</google-guava.version>
     </properties>
 
     <!-- 版本仲裁 -->
@@ -63,6 +66,11 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
                 <scope>test</scope>
+             </dependency>
+             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
              </dependency>
              <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -100,14 +108,24 @@
                 <artifactId>jest</artifactId>
                 <version>${elasticsearch.searchbox.jest.version}</version>
              </dependency>
+            <dependency>
+            <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache-commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google-guava.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
+    <!-- FIXME starter-parent中已经声明，新建项目还是默认5没用，待测试 -->
+<!--    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-parent</artifactId>
         </dependency>
-    </dependencies>
+    </dependencies>-->
 
 </project>
