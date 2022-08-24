@@ -20,7 +20,7 @@
         <module>spring-boot-elasticsearch-searchbox-examples</module>
         <module>spring-boot-basis-examples</module>
         <module>spring-boot-java8-examples</module>
-        <module>spring-boot-algorithm-examples</module>
+        <module>spring-boot-algorithm-examples</module><module>spring-boot-cache-examples</module>
     </modules>
 
     <!-- 版本统一管理 -->
@@ -77,6 +77,11 @@
                 <artifactId>spring-boot-starter-webflux</artifactId>
                 <version>${spring-boot.version}</version>
              </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
              <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
