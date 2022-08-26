@@ -50,7 +50,7 @@ public class LettuceConfig2 {
 
     @Bean
     public RedisTemplate<Object, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
-        RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<Object, Object>();
+        RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);
         // key序列化，采用StringRedisSerializer
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
