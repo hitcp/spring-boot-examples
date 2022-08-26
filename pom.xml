@@ -23,7 +23,6 @@
         <module>spring-boot-algorithm-examples</module><module>spring-boot-cache-examples</module>
     </modules>
 
-    <!-- 版本统一管理 -->
     <properties>
         <rversion>1.0.0</rversion>
         <java.version>1.8</java.version>

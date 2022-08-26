@@ -1,0 +1,19 @@
+spring:
+  redis:
+    host: 10.206.36.253
+    port: 5010
+    password: 4cxf9GY7sZt8AW
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: 1ms
+    jedis:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: 1ms
+
+
