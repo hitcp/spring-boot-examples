@@ -15,6 +15,13 @@
           <dependency>
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-starter-data-redis</artifactId>
+              <!-- 使用jedis就排除lettuce客户端，否则jedis配置不生效 -->
+              <exclusions>
+                  <exclusion>
+                     <groupId>io.lettuce</groupId>
+                     <artifactId>lettuce-core</artifactId>
+                  </exclusion>
+              </exclusions>
           </dependency>
           <dependency>
               <groupId>org.springframework.boot</groupId>
@@ -25,11 +32,10 @@
               <artifactId>spring-boot-starter-test</artifactId>
           </dependency>
         <!-- jedis客户端（需要额外引入） -->
-<!--        <dependency>
+        <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.2.0</version>
-        </dependency>-->
+        </dependency>
         <!-- junit测试 -->
         <dependency>
             <groupId>junit</groupId>

@@ -1,12 +1,14 @@
-package org.microframework.reids;
+package org.microframework.reids.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.*;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -15,51 +17,76 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.io.Serializable;
 
 /**
- * Redis Lettuce 客户端配置
- * TODO Lettuce相比于Jedis客户端：支持集群
+ * Redis Jedis 客户端配置
+ * <p>
+ * Jedis客户端支持模式：
+ * 1.单机模式 <li>{@link RedisStandaloneConfiguration}</li>
+ * 2.哨兵模式 <li>{@link RedisSentinelConfiguration}</li>
+ * 3.集群模式 <li>{@link RedisClusterConfiguration}</li>
  *
  * @author Shaoyu Liu
  * @date 2022-08-26
  */
 @Configuration
-public class LettuceConfig {
+public class JedisConfig {
 
     @Value("${spring.redis.host}")
-    private String host;
+    public String host;
 
     @Value("${spring.redis.port}")
-    private int port;
+    public int port;
 
     @Value("${spring.redis.password}")
-    private String password;
-
-
-    @Bean
-    public CacheManager cacheManager(LettuceConnectionFactory lettuceConnectionFactory) {
-        RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager
-                .RedisCacheManagerBuilder
-                .fromConnectionFactory(lettuceConnectionFactory);
-        return builder.build();
-    }
+    public String password;
 
     /**
-     * Redis 架构模式配置
-     * 支持模式：
-     * 1.单机模式配置      {@link RedisStandaloneConfiguration}
-     * 2.主从模式配置      {@link RedisStaticMasterReplicaConfiguration}
-     * 3.Socket模式配置   {@link RedisSocketConfiguration}
-     * 4.哨兵模式配置      {@link RedisSentinelConfiguration}
-     * 5.集群模式配置      {@link RedisClusterConfiguration}
+     * 选择缓存客户端：jedis、lettuce
      *
      * @return
      */
     @Bean
-    public LettuceConnectionFactory redisConnectionFactory() {
+    public CacheManager cacheManager(JedisConnectionFactory jedisConnectionFactory) {
+        RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager.RedisCacheManagerBuilder
+                .fromConnectionFactory(jedisConnectionFactory);
+        return builder.build();
+    }
+
+    /**
+     * 1.单机模式
+     *
+     * @return
+     */
+    @Bean
+    public JedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
         redisStandaloneConfiguration.setHostName(host);
         redisStandaloneConfiguration.setPort(port);
-        redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
-        return new LettuceConnectionFactory(redisStandaloneConfiguration);
+        redisStandaloneConfiguration.setPassword(password);
+        return new JedisConnectionFactory(redisStandaloneConfiguration);
+    }
+
+    /**
+     * 2.哨兵模式
+     *
+     * @return
+     */
+    @Bean
+    public RedisSentinelConfiguration redisSentinelConfiguration() {
+        RedisSentinelConfiguration redisSentinelConfiguration = new RedisSentinelConfiguration();
+        // TODO 定义配置
+        return redisSentinelConfiguration;
+    }
+
+    /**
+     * 3.集群模式
+     *
+     * @return
+     */
+    @Bean
+    public RedisClusterConfiguration redisClusterConfiguration() {
+        RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
+        // TODO 定义配置
+        return redisClusterConfiguration;
     }
 
     /**
@@ -69,17 +96,18 @@ public class LettuceConfig {
      * 使用场景：复杂类型使用
      * 缺点：不可读取可读形式数据（解释：只能查到字节数组形式的数据，如果数据是可读形式则读取不到数据，显示null，此时可使用StringRedisTemplate尝试获取）
      *
-     * @param lettuceConnectionFactory
+     * @param jedisConnectionFactory
      * @return
      */
     @Bean
-    public RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
+    public RedisTemplate<String, Serializable> redisTemplate(JedisConnectionFactory jedisConnectionFactory) {
         RedisTemplate<String, Serializable> redisTemplate = new RedisTemplate<>();
+//        redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
-        redisTemplate.setConnectionFactory(lettuceConnectionFactory);
+        redisTemplate.setConnectionFactory(jedisConnectionFactory);
         return redisTemplate;
     }
 
@@ -91,18 +119,18 @@ public class LettuceConfig {
      * 使用场景：字符串
      * 缺点：不可读取字节数组
      *
-     * @param lettuceConnectionFactory
+     * @param jedisConnectionFactory
      * @return
      */
     @Bean
-    public StringRedisTemplate stringRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
+    public StringRedisTemplate stringRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         // TOOD 父类已经设置，子类不必重复设置
 //        stringRedisTemplate.setKeySerializer(new StringRedisSerializer());
 //        stringRedisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
 //        stringRedisTemplate.setHashKeySerializer(new StringRedisSerializer());
 //        stringRedisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
-        stringRedisTemplate.setConnectionFactory(lettuceConnectionFactory);
+        stringRedisTemplate.setConnectionFactory(jedisConnectionFactory);
         return stringRedisTemplate;
     }
 }
