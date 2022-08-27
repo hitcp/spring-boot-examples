@@ -1,12 +1,14 @@
 package org.microframwork.redis.jedis;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.microframework.reids.RedisApplication;
 import org.microframework.reids.entity.User;
-import org.microframwork.redis.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +17,9 @@ import java.util.Date;
  * @author Shaoyu Liu
  * @date 2022-08-26
  */
-@Configuration
-public class JedisTemplateTest extends BaseTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = RedisApplication.class)
+public class JedisTemplateTest {
 
 
     @Autowired

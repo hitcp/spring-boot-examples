@@ -1,9 +1,12 @@
 package org.microframwork.redis.letuuce;
 
 import org.junit.Test;
-import org.microframwork.redis.BaseTest;
+import org.junit.runner.RunWith;
+import org.microframework.reids.RedisApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +15,9 @@ import java.util.Date;
  * @author Shaoyu Liu
  * @date 2022-08-26
  */
-public class LettuceTemplateTest extends BaseTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = RedisApplication.class)
+public class LettuceTemplateTest {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
