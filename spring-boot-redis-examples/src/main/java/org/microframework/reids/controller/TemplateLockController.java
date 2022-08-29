@@ -1,22 +1,18 @@
 package org.microframework.reids.controller;
 
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Shaoyu Liu
- * @date 2022-08-27
+ * @date 2022-08-29
  */
-@RequestMapping("/redisson")
-public class RedissonLockController {
-
-    @Autowired
-    private RedissonClient redissonClient;
-
+@RequestMapping("/template")
+public class TemplateLockController {
     @Autowired
     private RedisTemplate redisTemplate;
     /**
@@ -36,20 +32,14 @@ public class RedissonLockController {
 
     @GetMapping("createOrder")
     public void createOrder() {
-        RLock rLock = redissonClient.getLock(LOCK_KEY_PREFIX);
-        rLock.lock();
         try {
-            int stock = (Integer) redisTemplate.opsForValue().get("stock");
-            if (stock > 0) {
-                TICKET_PRODUCT = stock - 1;
-                redisTemplate.opsForValue().set("stock", TICKET_PRODUCT);
-                System.out.println("卖出1件商品，库存剩余：" + TICKET_PRODUCT);
-            } else {
-                System.out.println("售卖失败！库存不足");
+            redisTemplate.opsForValue().set("order", "100", 30, TimeUnit.SECONDS);
+            if (!redisTemplate.hasKey("order")) {
+                // TODO
             }
-
         } finally {
-            rLock.unlock();
+            redisTemplate.delete("order");
         }
     }
+
 }
