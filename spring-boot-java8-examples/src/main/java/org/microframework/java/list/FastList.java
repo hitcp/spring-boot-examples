@@ -15,8 +15,11 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 /**
+ * 相比较ArrayList添加速度更快，具体见  add(T)方法
+ *
  * @author Shaoyu Liu
  * @date 2022-08-29
+ * @see org.microframework.java.list.FastList#add(java.lang.Object)
  * @see com.zaxxer.hikari.util.FastList
  */
 public final class FastList<T> implements List<T>, RandomAccess, Serializable {
@@ -56,11 +59,17 @@ public final class FastList<T> implements List<T>, RandomAccess, Serializable {
     }
 
     /**
-     * 主要体现在添加元素快上，TODO 具体逻辑
+     * 主要体现在添加元素快上
+     * <p>
      * 和ArrayList相比较，主要快在add方法上
+     * 1.ArrayList方法层级比FastList多，出入栈更频繁。
+     * 2.由于ArrayList使用无参构造时，elementData数组变量是个空数组，需要在首次add时触发数组初始化，多了一些逻辑判断（对于Hikari来说，创建FastList和ArrayList时都传入了初始容量，这些逻辑判断都是无用的）。
+     * 3.FastList相比ArrayList去除了modCount的自增操作
+     * 4.ArrayList扩容的计算逻辑相对复杂，考虑了很多边界条件。拷贝数组使用Arrays.copyOf方法，其底层也是调用System.arraycopy，但是调用栈很深
      *
      * @param element
      * @return
+     * @website <a href="https://juejin.cn/post/6887371883810357255"/>HikariCP源码阅读（二）ConcurrentBag与FastList </a>
      */
     @Override
     public boolean add(T element) {

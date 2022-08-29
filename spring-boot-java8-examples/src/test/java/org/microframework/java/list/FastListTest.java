@@ -14,7 +14,7 @@ class FastListTest {
      * 测试FastList和ArrayList add方法速度
      */
     @Test
-    public void testFastListSpeed(){
+    void testFastListSpeed() {
         // 模拟数据量
         int data_size = 1000000;
         ArrayList<String> arrayList = new ArrayList<>();
