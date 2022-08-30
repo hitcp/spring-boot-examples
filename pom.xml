@@ -12,12 +12,12 @@
 
     <groupId>org.microframework</groupId>
     <artifactId>spring-boot-examples</artifactId>
-    <version>${rversion}</version>
+    <version>1.0.0</version>
     <!-- 有子模块后必须打包类型必须选择pom -->
     <packaging>pom</packaging>
 
     <!-- 以下为Maven生成文档使用 -->
-    <!--项目的名称 -->
+    <!-- 项目的名称 -->
     <name>Spring Boot Examples ${project.version}</name>
     <description>Top Spring Boot Examples project pom.xml file</description>
     <url>https://spring-boot-examples.hitcp.cn</url>
@@ -68,7 +68,7 @@
         <redis-lock-redisson.version>3.17.6</redis-lock-redisson.version>
 
         <!-- plugin version -->
-        <maven-compiler-plugin.version>3.5.4</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
     </properties>
 
     <!-- 版本仲裁 -->
