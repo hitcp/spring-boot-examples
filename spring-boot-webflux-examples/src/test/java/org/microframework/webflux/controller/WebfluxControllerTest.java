@@ -1,11 +1,10 @@
 package org.microframework.webflux.controller;
 
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
@@ -13,7 +12,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * @author Shaoyu Liu
  * @date 2022-08-18
  */
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class) spring-boot-starter-test 2.5.5 版本只需要在类上加上@SpringBootTest即可，不需要再加@RunWith()注解了
+@SpringBootTest
 @WebFluxTest(controllers = WebfluxController.class)
 public class WebfluxControllerTest {
 
