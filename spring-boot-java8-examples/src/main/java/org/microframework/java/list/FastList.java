@@ -104,7 +104,9 @@ public final class FastList<T> implements List<T>, RandomAccess, Serializable {
     }
 
     /**
-     * TODO 速度好像比arraylist慢，
+     * 1.从后向前遍历：应该是后面新加的值删除的改路比较高
+     * 2.去掉边界校验
+     * 3.直接使用==比较内存的值，而arrayList先判断是否为null，null则用==判断，不null则equals判断
      *
      * @param element
      * @return
@@ -112,21 +114,20 @@ public final class FastList<T> implements List<T>, RandomAccess, Serializable {
      */
     @Override
     public boolean remove(Object element) {
-        // 从尾部向前循环，--index 是
-        for (int index = this.size - 1; index >= 0; --index) {
+        // 从尾部向前循环
+        for (int index = size - 1; index >= 0; --index) {
             // 判断元素是否相等
-            if (element == this.elementData[index]) {
-                //
-                int numMoved = this.size - index - 1;
+            if (element == elementData[index]) {
+                // 判断元素移动位数
+                int numMoved = size - index - 1;
                 if (numMoved > 0) {
-                    System.arraycopy(this.elementData, index + 1, this.elementData, index, numMoved);
+                    System.arraycopy(elementData, index + 1, elementData, index, numMoved);
                 }
-
-                this.elementData[--this.size] = null;
+                // 元素赋值为null再去掉（注意：--size和size--如果不在表达式中则没有区别）
+                elementData[--size] = null;
                 return true;
             }
         }
-
         return false;
     }
 
