@@ -2,20 +2,13 @@ package org.microframework.java.list;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
-import java.util.RandomAccess;
-import java.util.Spliterator;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 /**
- * 相比较ArrayList添加速度更快，具体见  add(T)方法
+ * 相比较ArrayList添加速度更快，具体见  add(T)方法，remove(Object)
  *
  * @author Shaoyu Liu
  * @date 2022-08-29
@@ -70,6 +63,7 @@ public final class FastList<T> implements List<T>, RandomAccess, Serializable {
      * @param element
      * @return
      * @website <a href="https://juejin.cn/post/6887371883810357255"/>HikariCP源码阅读（二）ConcurrentBag与FastList </a>
+     * @see ArrayList#add(java.lang.Object)
      */
     @Override
     public boolean add(T element) {
@@ -109,10 +103,20 @@ public final class FastList<T> implements List<T>, RandomAccess, Serializable {
         return element;
     }
 
+    /**
+     * TODO 速度好像比arraylist慢，
+     *
+     * @param element
+     * @return
+     * @see ArrayList#remove(int)
+     */
     @Override
     public boolean remove(Object element) {
+        // 从尾部向前循环，--index 是
         for (int index = this.size - 1; index >= 0; --index) {
+            // 判断元素是否相等
             if (element == this.elementData[index]) {
+                //
                 int numMoved = this.size - index - 1;
                 if (numMoved > 0) {
                     System.arraycopy(this.elementData, index + 1, this.elementData, index, numMoved);
