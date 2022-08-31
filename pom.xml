@@ -3,11 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <!-- FIXME starter-parent中已经声明，新建项目还是默认5没用，待测试 -->
-<!--    <parent>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
-    </parent>-->
+        <!--<version>2.7.3</version>-->
+        <version>${spring-boot.version}</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.microframework</groupId>
@@ -46,9 +47,9 @@
         <rversion>1.0.0</rversion>
         <java.version>1.8</java.version>
         <!-- spring-boot-starter-parent  TODO starter-parent中已经声明，新建项目语言等级还是默认jdk5。没用，待测试 -->
-        <!-- Compiler settings properties : 指定Language Level防止每次自动重置Language Level，搭配下面的build插件一起使用 -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- maven compiler settings properties : 指定Language Level防止每次自动重置Language Level，不用写build插件如果会自动读取maven.compiler.source、maven.compiler.target这两个属性 -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.3</spring-boot.version>
