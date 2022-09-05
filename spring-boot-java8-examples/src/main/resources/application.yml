@@ -1,0 +1,12 @@
+server:
+  port: 9001
+#spring:
+#  jackson:
+#    # @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+#    # 全局设置@JsonFormat注解的的pattern值
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    # 全局设置@JsonFormat注解的的timezone值
+#    time-zone: GMT+8
+#    serialization:
+#      # 将java.util.Date类型参数转为时间戳timestamp类型
+#      write-dates-as-timestamps: true
