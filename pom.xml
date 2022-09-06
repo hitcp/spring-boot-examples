@@ -67,6 +67,7 @@
         <redis-lock-redisson.version>3.17.6</redis-lock-redisson.version>
         <google-guava.version>27.1-jre</google-guava.version>
         <alibaba-fastjson.version>1.2.58</alibaba-fastjson.version>
+        <caucho-hessian.version>4.0.66</caucho-hessian.version>
         <!-- plugin version -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
     </properties>
@@ -161,6 +162,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${alibaba-fastjson.version}</version>
+            </dependency>
+            <!-- 序列化 -->
+            <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>hessian</artifactId>
+                <version>${caucho-hessian.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

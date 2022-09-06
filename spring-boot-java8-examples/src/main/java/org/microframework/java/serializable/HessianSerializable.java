@@ -1,5 +1,12 @@
 package org.microframework.java.serializable;
 
+import com.caucho.hessian.io.HessianInput;
+import com.caucho.hessian.io.HessianOutput;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 /**
  * hessian协议与jdk区别
  * 区别一：java序列化无法跨语言
@@ -8,4 +15,28 @@ package org.microframework.java.serializable;
  * 区别四：Java序列化的内容比hessian大
  */
 public class HessianSerializable {
+
+    public static void main(String[] args) throws IOException {
+        serializable();
+    }
+
+    static void serializable() throws IOException {
+        User user = new User("张三", 20);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        // Hessian的序列化输出
+        new HessianOutput(os).writeObject(user);
+
+
+        byte[] userByte = os.toByteArray();
+        ByteArrayInputStream is = new ByteArrayInputStream(userByte);
+
+        // Hessian的反序列化读取对象
+        User u = (User) new HessianInput(is).readObject();
+
+
+        System.out.println("姓名：" + u.getName());
+        System.out.println("年龄：" + u.getAge());
+    }
 }
+
