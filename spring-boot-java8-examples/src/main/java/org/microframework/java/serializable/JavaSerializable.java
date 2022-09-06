@@ -19,15 +19,12 @@ public class JavaSerializable {
         // jdk序列化
         new ObjectOutputStream(os).writeObject(user);
 
-
         byte[] userByte = os.toByteArray();
         ByteArrayInputStream is = new ByteArrayInputStream(userByte);
 
         // jdk反序列化
-        User u = (User) new ObjectInputStream(is).readObject();
-
-        System.out.println("姓名：" + u.getName());
-        System.out.println("年龄：" + u.getAge());
+        User deserializableUserObject = (User) new ObjectInputStream(is).readObject();
+        System.out.println(deserializableUserObject);
     }
 }
 

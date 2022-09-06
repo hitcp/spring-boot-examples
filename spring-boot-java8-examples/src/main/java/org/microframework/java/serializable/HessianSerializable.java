@@ -27,16 +27,12 @@ public class HessianSerializable {
         // Hessian的序列化输出
         new HessianOutput(os).writeObject(user);
 
-
         byte[] userByte = os.toByteArray();
         ByteArrayInputStream is = new ByteArrayInputStream(userByte);
 
         // Hessian的反序列化读取对象
-        User u = (User) new HessianInput(is).readObject();
-
-
-        System.out.println("姓名：" + u.getName());
-        System.out.println("年龄：" + u.getAge());
+        User deserializableUserObject = (User) new HessianInput(is).readObject();
+        System.out.println(deserializableUserObject);
     }
 }
 
