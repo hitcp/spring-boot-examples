@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.annotation.JSONType;
 import com.alibaba.fastjson.parser.Feature;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.*;
 
 import java.util.Date;
 
@@ -12,15 +12,15 @@ import java.util.Date;
  * 1.@JSONField：用在属性或者get/set方法上
  * 2.@JSONType：序列化指定字段
  * 3.SerializeFilter
- * 4.SerializerFeature
+ * 4.SerializerFeature：指定格式，如null返回0，日期格式化
  */
 public class FastJsonSerializable {
 
     public static void main(String[] args) {
 //        serializable1();
 //        serializable2();
-//        serializable3();
-        serializable4();
+        serializable3();
+//        serializable4();
     }
 
     /**
@@ -57,9 +57,30 @@ public class FastJsonSerializable {
 
     /**
      * 方式3.SerializeFilter
+     *
+     * @see SerializeFilter
+     * NameFilter 修改key
+     * ValueFilter 修改value
+     * BeforeFilter 序列化时在最前添加内容
+     * AfterFilter 序列化时在最后添加内容
+     * PropertyPreFilter 根据PropertyName判断是否序列化
+     * PropertyFilter 根据PropertyName和PropertyValue来判断是否序列化
      */
     static void serializable3() {
-        // TODO
+        User3 user3 = new User3("张三", 20, new Date());
+
+        // 修改key
+        NameFilter nameFilter = nameFilter();
+        // 修改value
+        ValueFilter valueFilter = valueFilter();
+
+        // 序列化
+        Object serializableUserObject = JSON.toJSONString(user3, valueFilter);
+        System.out.println("序列化结果：" + serializableUserObject);
+
+        // 反序列化
+        User3 deserializableUserObject = JSON.parseObject(serializableUserObject.toString(), User3.class);
+        System.out.println("反序列化结果：" + deserializableUserObject);
     }
 
     /**
@@ -73,12 +94,10 @@ public class FastJsonSerializable {
      * WriteNullStringAsEmpty：字符类型字段如果为null,输出为”“,而非null
      * WriteNullBooleanAsFalse：Boolean字段如果为null,输出为false,而非null
      * WriteDateUseDateFormat：格式化Date类型为yyyy-MM-dd HH:mm:ss
-     *
      * @see Feature#OrderedField 按照目标对象字段顺序序列化
      */
     static void serializable4() {
-        Date createDate = new Date();
-        User4 user4 = new User4("张三", 20, createDate);
+        User4 user4 = new User4("张三", 20, new Date());
         System.out.println("原对象：" + user4);
 
         // 序列化
@@ -86,14 +105,38 @@ public class FastJsonSerializable {
         System.out.println("序列化结果：" + serializableUserObject);
 
         // 反序列化
-        User4 deserializableUserObject = JSON.parseObject(serializableUserObject, User4.class, Feature.OrderedField );
+        User4 deserializableUserObject = JSON.parseObject(serializableUserObject, User4.class, Feature.OrderedField);
         System.out.println("反序列化结果：" + deserializableUserObject);
     }
 
+
+    private static NameFilter nameFilter() {
+        return (object, name, value) -> {
+            if ("age".equals(name)) {
+                return "age_u";
+            }
+            if ("name".equals(name)) {
+                return "name_u";
+            }
+            return name;
+        };
+    }
+
+    private static ValueFilter valueFilter() {
+        return (object, name, value) -> {
+            if ("name".equals(name)) {
+                return "张三_u";
+            }
+            if ("age".equals(name)) {
+                return 21;
+            }
+            return value;
+        };
+    }
 }
 
 class User1 {
-    private static final long serialVersionUID = 1L;
+
     @JSONField(name = "NAME")
     private String name;
     @JSONField(name = "AGE", serialize = false, deserialize = false)
@@ -137,7 +180,6 @@ class User1 {
  */
 @JSONType(includes = {"name", "age"}, ignores = {"desc"})
 class User2 {
-    private static final long serialVersionUID = 1L;
 
     private String name;
 
@@ -188,8 +230,57 @@ class User2 {
     }
 }
 
+class User3 {
+    private String name;
+
+    private Integer age;
+
+    private Date createDate;
+
+    public User3(String name, Integer age, Date createDate) {
+        this.name = name;
+        this.age = age;
+        this.createDate = createDate;
+    }
+
+    public User3() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User3{" +
+                "name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", createDate=" + createDate +
+                '}';
+    }
+}
+
 class User4 {
-    private static final long serialVersionUID = 1L;
 
     private String name;
 
@@ -239,3 +330,4 @@ class User4 {
                 '}';
     }
 }
+
