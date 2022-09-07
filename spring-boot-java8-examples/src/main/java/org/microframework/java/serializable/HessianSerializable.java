@@ -24,13 +24,13 @@ public class HessianSerializable {
         User user = new User("张三", 20);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-        // Hessian的序列化输出
+        // hessian序列化
         new HessianOutput(os).writeObject(user);
 
         byte[] userByte = os.toByteArray();
         ByteArrayInputStream is = new ByteArrayInputStream(userByte);
 
-        // Hessian的反序列化读取对象
+        // hessian反序列化
         User deserializableUserObject = (User) new HessianInput(is).readObject();
         System.out.println(deserializableUserObject);
     }
