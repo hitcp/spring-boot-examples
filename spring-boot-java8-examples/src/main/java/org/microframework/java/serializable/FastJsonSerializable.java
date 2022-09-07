@@ -11,8 +11,8 @@ import java.util.Date;
 /**
  * 1.@JSONField：用在属性或者get/set方法上
  * 2.@JSONType：序列化指定字段
- * 3.SerializeFilter
- * 4.SerializerFeature：指定格式，如null返回0，日期格式化
+ * 3.SerializeFilter：（定制序列化方式）对key，value，序列化前后做一些操作
+ * 4.SerializerFeature：（定制序列化方式）指定格式，如null返回0，日期格式化
  */
 public class FastJsonSerializable {
 
