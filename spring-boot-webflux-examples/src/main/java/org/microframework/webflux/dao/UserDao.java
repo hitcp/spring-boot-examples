@@ -1,7 +1,5 @@
 package org.microframework.webflux.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.microframework.webflux.entity.User;
 import org.springframework.stereotype.Repository;
 
