@@ -1,4 +1,4 @@
-package org.microframework.webflux.config;
+package org.microframework.webflux.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +24,7 @@ public class WebEchoHandler implements WebHandler {
         DataBufferFactory bufferFactory = response.bufferFactory();
         ObjectMapper objectMapper = new ObjectMapper();
         User user = new User("张三");
-        DataBuffer wrap = null;
+        DataBuffer wrap;
         try {
             wrap = bufferFactory.wrap(objectMapper.writeValueAsBytes(user));
         } catch (JsonProcessingException e) {

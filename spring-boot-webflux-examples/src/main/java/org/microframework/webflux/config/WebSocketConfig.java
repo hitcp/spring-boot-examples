@@ -1,5 +1,6 @@
 package org.microframework.webflux.config;
 
+import org.microframework.webflux.handler.WebSocketEchoHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

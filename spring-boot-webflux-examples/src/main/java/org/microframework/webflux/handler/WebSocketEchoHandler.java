@@ -1,4 +1,4 @@
-package org.microframework.webflux.config;
+package org.microframework.webflux.handler;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketHandler;

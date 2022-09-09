@@ -1,12 +1,13 @@
 package org.microframework.webflux.router;
 
+import org.microframework.webflux.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.server.*;
-import reactor.core.publisher.Mono;
+import org.springframework.web.reactive.function.server.RequestPredicates;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 
 /**
@@ -18,19 +19,22 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class WebfluxRouter {
     @Bean
-    public RouterFunction<ServerResponse> fluxRouter(HelloService helloService) {
-        return RouterFunctions.route(RequestPredicates.GET("/fluxRouter")
-                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)),
-                helloService::hello);
+    public RouterFunction<ServerResponse> fluxRouterService(UserService userService) {
+        return RouterFunctions
+                .route(RequestPredicates.GET("/fluxRouter/user/hello").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), userService::hello)
+                .andRoute(RequestPredicates.POST("/fluxRouter/user/insert").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), userService::insert)
+                .andRoute(RequestPredicates.POST("/fluxRouter/user/delete").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), userService::delete)
+                .andRoute(RequestPredicates.POST("/fluxRouter/user/update").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), userService::update)
+                .andRoute(RequestPredicates.GET("/fluxRouter/user/select").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), userService::select)
+                .andRoute(RequestPredicates.GET("/fluxRouter/user/list").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), userService::list);
     }
+
+//    @Bean
+//    public RouterFunction<ServerResponse> fluxRouterHandler(HelloHandler helloHandler) {
+//        return RouterFunctions
+//                .route(RequestPredicates.GET("/fluxRouter").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), helloService::hello);
+//    }
 }
 
-//@Service
-@Component
-class HelloService {
-    public Mono<ServerResponse> hello(ServerRequest request) {
-        return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-                .body(BodyInserters.fromValue("Hello, Spring WebFlux fluxRouter!"));
-    }
-}
+
 
