@@ -45,7 +45,7 @@ public class WebfluxController {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                Thread.currentThread().interrupt(); // TODO
+                Thread.currentThread().interrupt();
             }
             return "姓名:" + name;
         });
@@ -60,9 +60,9 @@ public class WebfluxController {
         );
     }
 
-    @GetMapping(value = "/fluxListObject", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/fluxListObject", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<User> fluxListObject() throws InterruptedException {
-        return Flux.just(
+        return Flux.just( // 一个Object或者list
                 method1User(),
                 method2User(),
                 method3User()
