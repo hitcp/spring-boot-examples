@@ -14,6 +14,7 @@
 //import org.springframework.data.redis.core.StringRedisTemplate;
 //import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 //import org.springframework.data.redis.serializer.StringRedisSerializer;
+//import redis.clients.jedis.JedisPoolConfig;
 //
 //import java.io.Serializable;
 //
@@ -45,11 +46,20 @@
 //     *
 //     * @return
 //     */
+////    @Bean
+////    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+////        RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager.RedisCacheManagerBuilder
+////                .fromConnectionFactory(redisConnectionFactory);
+////        return builder.build();
+////    }
+//
+//
 //    @Bean
-//    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-//        RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager.RedisCacheManagerBuilder
-//                .fromConnectionFactory(redisConnectionFactory);
-//        return builder.build();
+//    public RedisConnectionFactory redisConnectionFactory(JedisPoolConfig jedisPool,
+//                                                         RedisStandaloneConfiguration jedisConfig) {
+//        JedisConnectionFactory connectionFactory = new JedisConnectionFactory(jedisConfig);
+//        connectionFactory.setPoolConfig(jedisPool);
+//        return connectionFactory;
 //    }
 //
 //    /**
