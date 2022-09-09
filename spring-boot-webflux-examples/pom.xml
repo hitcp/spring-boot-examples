@@ -25,7 +25,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
-                <!-- 默认执行顺序：tomcat > jetty > undertow -->
+                <!-- 默认执行顺序：tomcat > jetty > undertow > netty-->
                 <!-- 排除tomcat引入其他容器 -->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -42,6 +42,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <!-- 替换为 netty -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-reactor-netty</artifactId>
         </dependency>
     </dependencies>
 
