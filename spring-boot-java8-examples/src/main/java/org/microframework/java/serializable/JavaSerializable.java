@@ -1,5 +1,7 @@
 package org.microframework.java.serializable;
 
+import org.springframework.util.SerializationUtils;
+
 import java.io.*;
 
 /**
@@ -25,6 +27,13 @@ public class JavaSerializable {
         // jdk反序列化
         User deserializableUserObject = (User) new ObjectInputStream(is).readObject();
         System.out.println(deserializableUserObject);
+
+
+        byte[] userByte2 = SerializationUtils.serialize(user);
+        User deserialize =  (User)SerializationUtils.deserialize(userByte2);
+        System.out.println(deserialize);
+
+
     }
 }
 
