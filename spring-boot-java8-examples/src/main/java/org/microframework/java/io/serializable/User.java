@@ -1,4 +1,4 @@
-package org.microframework.java.serializable;
+package org.microframework.java.io.serializable;
 
 import java.io.Serializable;
 
