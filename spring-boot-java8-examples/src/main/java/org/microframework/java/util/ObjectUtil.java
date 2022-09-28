@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ObjectUtil extends ObjectUtils {
 
     /**
-     * 将Object类转换为指定实体类对象
+     * 将Object（String）类转换为指定实体类对象
      *
      * @param source 源数据json串或者Object对象
      * @param target 目标实体类，如：User.class，Group.class
@@ -26,7 +26,7 @@ public class ObjectUtil extends ObjectUtils {
     }
 
     /**
-     * 将Object类转换为指定类型，兼容上方的convertObject()方法
+     * 将Object（String）类转换为指定类型，兼容上方的convertObject()方法
      *
      * @param source          源数据json串或者Object对象
      * @param targetClassType 目标类型
@@ -72,10 +72,11 @@ public class ObjectUtil extends ObjectUtils {
 
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, JsonProcessingException {
         // 测试转换json为自定义对象
-//        Object jsonObject = "{\"id\":1,\"name\":\"张小明\"}";
+        Object jsonObject = "{\"id\":1,\"name\":\"张小明\"}";
 ////        User user1 = ObjectUtil.convertObject(jsonObject, User.class);
 //        User user2 = ObjectUtil.constructType(jsonObject, User.class);
-//        System.out.println(user2);
+        User user = new ObjectMapper().convertValue(jsonObject, User.class);
+        System.out.println(user);
 
         // 测试转换json为ArrayList
         Object jsonList = "[{\"id\":1,\"name\":\"张小明\"},{\"id\":2,\"name\":\"张小明2\"},{\"id\":3,\"name\":\"张小明3\"}]";
