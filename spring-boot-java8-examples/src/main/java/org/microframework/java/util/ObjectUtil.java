@@ -21,9 +21,9 @@ public class ObjectUtil extends ObjectUtils {
      * @param <T>
      * @return
      */
-    public static <T> T convertObject(Object source, Class<T> target) {
-        return new ObjectMapper().convertValue(source, target);
-    }
+//    public static <T> T convertObject(Object source, Class<T> target) {
+//        return new ObjectMapper().convertValue(source, target);
+//    }
 
     /**
      * 将Object（String）类转换为指定类型，兼容上方的convertObject()方法
@@ -36,7 +36,7 @@ public class ObjectUtil extends ObjectUtils {
      * @return
      * @throws JsonProcessingException
      */
-    public static <T> T constructType(Object source, Class<T> targetClassType) {
+    public static <T> T convertObject(Object source, Class<T> targetClassType) {
         T t;
         try {
             t = new ObjectMapper().readValue(source.toString(), targetClassType);
@@ -65,22 +65,15 @@ public class ObjectUtil extends ObjectUtils {
     private ObjectUtil() {
     }
 
-    public static <T> T convertObject2(Object source, Class<T> target) throws InstantiationException, IllegalAccessException {
-        T t = target.newInstance();
-        return t;
-    }
-
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException, JsonProcessingException {
+    public static void main(String[] args) {
         // 测试转换json为自定义对象
         Object jsonObject = "{\"id\":1,\"name\":\"张小明\"}";
-////        User user1 = ObjectUtil.convertObject(jsonObject, User.class);
-//        User user2 = ObjectUtil.constructType(jsonObject, User.class);
-        User user = new ObjectMapper().convertValue(jsonObject, User.class);
+        User user = ObjectUtil.convertObject(jsonObject, User.class);
         System.out.println(user);
 
         // 测试转换json为ArrayList
         Object jsonList = "[{\"id\":1,\"name\":\"张小明\"},{\"id\":2,\"name\":\"张小明2\"},{\"id\":3,\"name\":\"张小明3\"}]";
-        ArrayList<User> arrayList = ObjectUtil.constructType(jsonList, ArrayList.class);
+        ArrayList<User> arrayList = ObjectUtil.convertObject(jsonList, ArrayList.class);
         System.out.println(arrayList);
         // 测试ArrayList转json
         System.out.println(convertJson(arrayList));
