@@ -2,7 +2,7 @@ package org.microframework.java.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.microframework.java.entity.User;
+//import org.microframework.java.entity.User;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -65,20 +65,20 @@ public class ObjectUtil extends ObjectUtils {
     private ObjectUtil() {
     }
 
-    public static void main(String[] args) {
-        // 测试转换json为自定义对象
-        Object jsonObject = "{\"id\":1,\"name\":\"张小明\"}";
-        User user = ObjectUtil.convertObject(jsonObject, User.class);
-        System.out.println(user);
-
-        // 测试转换json为ArrayList
-        Object jsonList = "[{\"id\":1,\"name\":\"张小明\"},{\"id\":2,\"name\":\"张小明2\"},{\"id\":3,\"name\":\"张小明3\"}]";
-        ArrayList<User> arrayList = ObjectUtil.convertObject(jsonList, ArrayList.class);
-        System.out.println(arrayList);
-        // 测试ArrayList转json
-        System.out.println(convertJson(arrayList));
-
-    }
+//    public static void main(String[] args) {
+//        // 测试转换json为自定义对象
+//        Object jsonObject = "{\"id\":1,\"name\":\"张小明\"}";
+//        User user = ObjectUtil.convertObject(jsonObject, User.class);
+//        System.out.println(user);
+//
+//        // 测试转换json为ArrayList
+//        Object jsonList = "[{\"id\":1,\"name\":\"张小明\"},{\"id\":2,\"name\":\"张小明2\"},{\"id\":3,\"name\":\"张小明3\"}]";
+//        ArrayList<User> arrayList = ObjectUtil.convertObject(jsonList, ArrayList.class);
+//        System.out.println(arrayList);
+//        // 测试ArrayList转json
+//        System.out.println(convertJson(arrayList));
+//
+//    }
 
 }
 
