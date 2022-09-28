@@ -37,13 +37,11 @@ public class ObjectUtil extends ObjectUtils {
      * @throws JsonProcessingException
      */
     public static <T> T convertObject(Object source, Class<T> targetClassType) {
-        T t;
         try {
-            t = new ObjectMapper().readValue(source.toString(), targetClassType);
+            return new ObjectMapper().readValue(source.toString(), targetClassType);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return t;
     }
 
     /**
@@ -53,13 +51,11 @@ public class ObjectUtil extends ObjectUtils {
      * @return
      */
     public static String convertJson(Object source) {
-        String json;
         try {
-            json = new ObjectMapper().writeValueAsString(source);
+            return new ObjectMapper().writeValueAsString(source);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return json;
     }
 
     private ObjectUtil() {
