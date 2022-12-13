@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
+        <version>2.7.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -40,6 +40,7 @@
         <module>spring-boot-java8-examples</module>
         <module>spring-boot-algorithm-examples</module>
         <module>spring-boot-cache-examples</module>
+        <module>spring-boot-mq-examples</module>
     </modules>
 
     <properties>
@@ -70,6 +71,9 @@
         <caucho-hessian.version>4.0.66</caucho-hessian.version>
         <!-- plugin version -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <apache-tomcat.version>10.1.2</apache-tomcat.version>
+        <apache-rocketmq.version>2.0.1</apache-rocketmq.version>
+        <apache-kafka.version>3.3.1</apache-kafka.version>
     </properties>
 
     <!-- 版本仲裁 -->
@@ -183,6 +187,17 @@
                 <groupId>com.caucho</groupId>
                 <artifactId>hessian</artifactId>
                 <version>${caucho-hessian.version}</version>
+            </dependency>
+            <!-- RocketMQ -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${apache-rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_2.13</artifactId>
+                <version>${apache-kafka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

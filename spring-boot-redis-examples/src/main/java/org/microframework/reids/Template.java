@@ -1,6 +1,8 @@
 package org.microframework.reids;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
@@ -8,7 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @author Shaoyu Liu
  * @date 2022-08-26
  */
-public class TemplateClient {
+public class Template {
 
     /**
      * RedisTemplate 默认使用 JdkSerializationRedisSerializer，存入数据会将数据先序列化成字节数组然后在存入Redis数据库。
@@ -26,6 +28,20 @@ public class TemplateClient {
      */
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private RedisOperations<String, Object> redisOperations;
+
+//    Spring 三大Template:RedisTemplate，RestTemplate，JdbcTemplate
+
+    /**
+     * @return
+     */
+    @Bean
+    public RedisOperations redisOperations() {
+        return new StringRedisTemplate();
+//        return new RedisTemplate<>();
+    }
 
 
 }
