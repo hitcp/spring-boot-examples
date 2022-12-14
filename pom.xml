@@ -30,7 +30,7 @@
 
     <!-- 子工程模块 -->
     <modules>
-        <module>spring-boot-basis-examples</module>
+        <module>spring-boot-core-examples</module>
         <module>spring-boot-java8-examples</module>
         <module>spring-boot-algorithm-examples</module>
         <module>spring-boot-cache-examples</module>
@@ -38,6 +38,7 @@
         <module>spring-boot-jdbc-examples</module>
         <module>spring-boot-orm-examples</module>
         <module>spring-boot-web-example</module>
+        <module>spring-cloud-alibaba-examples</module>
     </modules>
 
     <properties>
@@ -71,11 +72,20 @@
         <apache-tomcat.version>10.1.2</apache-tomcat.version>
         <apache-rocketmq.version>2.0.1</apache-rocketmq.version>
         <apache-kafka.version>3.3.1</apache-kafka.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
     </properties>
 
     <!-- 版本仲裁 -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
@@ -196,6 +206,44 @@
                 <artifactId>kafka_2.13</artifactId>
                 <version>${apache-kafka.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${spring-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+<!--            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
