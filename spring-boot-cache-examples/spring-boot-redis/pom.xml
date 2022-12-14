@@ -32,10 +32,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-        </dependency>
         <!-- jedis客户端（需要额外引入） -->
         <dependency>
             <groupId>redis.clients</groupId>
