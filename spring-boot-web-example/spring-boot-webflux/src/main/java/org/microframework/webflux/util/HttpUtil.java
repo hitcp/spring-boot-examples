@@ -60,17 +60,17 @@ public class HttpUtil {
     }
 
     // TODO header验证 请求接口异常验证
-    public static <R> R get(String url, Map<String, String> header, Map<String, Object> body, Class<? extends R> resultType) {
+    public static <R> R get(String url, Map<String, String> header, Map<String, Object> uriVariables, Class<? extends R> resultType) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         if (header != null && !header.isEmpty()) {
             header.forEach((s, o) -> httpHeaders.put(s, Collections.singletonList(o)));
         }
 
-        Map<String, Object> uriVariables = new HashMap<>();
-        if (body != null && !body.isEmpty()) {
-            body.forEach((s, o) -> uriVariables.put(s, Collections.singletonList(o)));
-        }
+//        Map<String, Object> uriVariables = new HashMap<>();
+//        if (body != null && !body.isEmpty()) {
+//            body.forEach((s, o) -> uriVariables.put(s, Collections.singletonList(o)));
+//        }
 
         ResponseEntity<? extends R> exchange = new RestTemplate().exchange(url, HttpMethod.GET, new HttpEntity<>(httpHeaders), resultType, uriVariables);
         if (HttpStatus.OK.value() == exchange.getStatusCodeValue()) {
