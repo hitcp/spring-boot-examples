@@ -75,7 +75,6 @@
         <apache-kafka.version>3.3.1</apache-kafka.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-        <spring-cloud-gateway.version>4.0.0</spring-cloud-gateway.version>
     </properties>
 
     <!-- 版本仲裁 -->
