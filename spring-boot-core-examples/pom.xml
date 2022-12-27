@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.microframework.basis</groupId>
-    <artifactId>spring-boot-basis-examples</artifactId>
+    <artifactId>spring-boot-core-examples</artifactId>
 
 
     <dependencies>
