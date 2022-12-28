@@ -58,6 +58,9 @@
         <!-- Apache依赖 -->
         <apache-kafka.version>3.3.1</apache-kafka.version>
         <apache-rocketmq.version>2.0.1</apache-rocketmq.version>
+        <apache-zookeeper.version>3.8.0</apache-zookeeper.version>
+        <apache-poi.version>4.1.2</apache-poi.version>
+        <apache-pdfbox.version>3.0.0-RC1</apache-pdfbox.version>
 
         <!-- maven插件依赖 -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
@@ -65,18 +68,17 @@
 
         <!-- 其他三方库依赖-->
         <mybatis.version>3.5.7</mybatis.version>
-        <elasticsearch-searchbox-jest.version>5.3.3</elasticsearch-searchbox-jest.version>
+        <redisson.version>3.17.6</redisson.version>
         <alibaba-fastjson.version>1.2.58</alibaba-fastjson.version>
         <google-guava.version>27.1-jre</google-guava.version>
-        <redisson.version>3.17.6</redisson.version>
         <caucho-hessian.version>4.0.66</caucho-hessian.version>
-
-
+        <searchbox-jest.version>5.3.3</searchbox-jest.version>
     </properties>
 
     <!-- 版本仲裁 -->
     <dependencyManagement>
         <dependencies>
+            <!-- Spring依赖-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -91,20 +93,42 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Apache依赖 -->
+            <!-- Kafka -->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_2.13</artifactId>
+                <version>${apache-kafka.version}</version>
+            </dependency>
+            <!-- RocketMQ -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${apache-rocketmq.version}</version>
+            </dependency>
+            <!-- Zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${apache-zookeeper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${apache-poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${apache-pdfbox.version}</version>
+            </dependency>
+
+            <!-- 其他三方库依赖-->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.searchbox</groupId>
-                <artifactId>jest</artifactId>
-                <version>${elasticsearch-searchbox-jest.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${google-guava.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.redisson</groupId>
@@ -116,26 +140,70 @@
                 <artifactId>fastjson</artifactId>
                 <version>${alibaba-fastjson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google-guava.version}</version>
+            </dependency>
             <!-- hessian序列化 -->
             <dependency>
                 <groupId>com.caucho</groupId>
                 <artifactId>hessian</artifactId>
                 <version>${caucho-hessian.version}</version>
             </dependency>
-            <!-- RocketMQ -->
             <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-spring-boot-starter</artifactId>
-                <version>${apache-rocketmq.version}</version>
-            </dependency>
-            <!-- Kafka -->
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka_2.13</artifactId>
-                <version>${apache-kafka.version}</version>
+                <groupId>io.searchbox</groupId>
+                <artifactId>jest</artifactId>
+                <version>${searchbox-jest.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <!-- 全局排除log4j -->
+<!--        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <!--<defaultGoal>clean install spring-boot:run</defaultGoal>-->
