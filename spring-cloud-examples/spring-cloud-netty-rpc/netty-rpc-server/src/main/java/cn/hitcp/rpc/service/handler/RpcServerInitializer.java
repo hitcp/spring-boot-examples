@@ -1,9 +1,9 @@
 package cn.hitcp.rpc.service.handler;
 
-import cn.hitcp.rpc.service.codec.RpcDecoder;
-import cn.hitcp.rpc.service.codec.RpcEncoder;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 /**
  * @author Shaoyu Liu
@@ -13,8 +13,8 @@ public class RpcServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
-                .addLast(new RpcDecoder())
-                .addLast(new RpcEncoder())
+                .addLast(new StringEncoder())
+                .addLast(new StringDecoder())
                 .addLast(new RpcServerHandler());
     }
 }

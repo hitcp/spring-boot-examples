@@ -13,5 +13,10 @@ public class RpcAutoConfiguration implements EnvironmentAware {
     @Override
     public void setEnvironment(Environment environment) {
         // TODO 解析配置
+        String host = environment.getProperty("cn.hitcp.rpc.server.host");
+        String port = environment.getProperty("cn.hitcp.rpc.server.port");
+
     }
+
+
 }

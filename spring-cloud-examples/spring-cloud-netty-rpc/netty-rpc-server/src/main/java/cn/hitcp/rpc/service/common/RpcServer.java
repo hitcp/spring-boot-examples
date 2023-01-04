@@ -12,6 +12,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @date 2023-01-04
  */
 public class RpcServer {
+
     public static void start() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

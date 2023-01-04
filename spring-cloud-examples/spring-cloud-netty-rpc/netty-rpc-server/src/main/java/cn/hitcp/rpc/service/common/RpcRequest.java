@@ -1,10 +1,12 @@
 package cn.hitcp.rpc.service.common;
 
+import java.io.Serializable;
+
 /**
  * @author Shaoyu Liu
  * @date 2023-01-03
  */
-public class RpcRequest {
+public class RpcRequest implements Serializable {
     /**
      * 请求全类名
      */
