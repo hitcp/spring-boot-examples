@@ -6,5 +6,12 @@
 
     <artifactId>netty-rpc-server</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+    </dependencies>
     
 </project>
