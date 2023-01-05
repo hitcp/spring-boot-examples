@@ -1,6 +1,8 @@
 package cn.hitcp.rpc.service.proxy;
 
 import cn.hitcp.rpc.service.codec.RequestMetadata;
+import cn.hitcp.rpc.service.codec.RpcDecoder;
+import cn.hitcp.rpc.service.codec.RpcEncoder;
 import cn.hitcp.rpc.service.common.RpcClientProperties;
 import cn.hitcp.rpc.service.common.RpcRequest;
 import cn.hitcp.rpc.service.common.RpcResponse;
@@ -10,8 +12,11 @@ import cn.hitcp.rpc.service.protocol.RpcProtocol;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,8 +60,19 @@ public class RpcInvocationHandler implements InvocationHandler {
         ResponseCache.put(protocol.getHeader().getRequestId(), future);
 
         Bootstrap bootstrap = new Bootstrap();
-        EventLoopGroup eventLoopGroup = new NioEventLoopGroup(4);
-        RpcServerInitializer handler = new RpcServerInitializer();
+        EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+        bootstrap.group(new NioEventLoopGroup())
+                .channel(NioSocketChannel.class)
+                .handler(new ChannelInitializer<SocketChannel>() {
+                    @Override
+                    protected void initChannel(SocketChannel socketChannel) {
+                        socketChannel.pipeline()
+                                .addLast(new RpcDecoder())
+                                .addLast(new RpcEncoder())
+                                .addLast(new RpcServerInitializer());
+                    }
+                });
+
         // TCP 连接
         ChannelFuture channelFuture = bootstrap.connect(metadata.getAddress(), metadata.getPort()).sync();
         channelFuture.addListener((ChannelFutureListener) arg0 -> {
