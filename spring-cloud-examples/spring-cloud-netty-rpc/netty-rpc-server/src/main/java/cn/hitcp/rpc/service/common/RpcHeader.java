@@ -7,10 +7,19 @@ import java.io.Serializable;
  * @date 2023-01-04
  */
 public class RpcHeader implements Serializable {
+    byte magic;
     long requestId;
     byte messageType;
     byte status;
 
+
+    public byte getMagic() {
+        return magic;
+    }
+
+    public void setMagic(byte magic) {
+        this.magic = magic;
+    }
 
     public long getRequestId() {
         return requestId;

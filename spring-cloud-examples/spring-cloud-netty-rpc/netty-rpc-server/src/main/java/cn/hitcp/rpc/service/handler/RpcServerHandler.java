@@ -16,7 +16,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class RpcServerHandler extends SimpleChannelInboundHandler<RpcProtocol<RpcRequest>> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RpcProtocol<RpcRequest> msg) throws Exception {
-        long requestId = msg.getMessageHeader().getRequestId();
+        long requestId = msg.getHeader().getRequestId();
         ctx.writeAndFlush(msg);
     }
 }

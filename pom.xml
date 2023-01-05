@@ -11,7 +11,8 @@
 
     <groupId>org.microframework</groupId>
     <artifactId>spring-boot-examples</artifactId>
-    <version>${revision}</version>
+    <!--<version>${revision}</version>-->
+    <version>1.0.0</version>
     <!-- 有子模块后必须打包类型必须选择pom -->
     <packaging>pom</packaging>
 

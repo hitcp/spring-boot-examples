@@ -18,26 +18,38 @@ public class RpcProtocol<T> implements Serializable {
     /**
      * 消息头
      */
-    private RpcHeader messageHeader;
+    private RpcHeader header;
 
     /**
      * 消息体
      */
-    private T messageBody;
+    private T body;
 
-    public RpcHeader getMessageHeader() {
-        return messageHeader;
+    public static String getNAME() {
+        return NAME;
     }
 
-    public void setMessageHeader(RpcHeader messageHeader) {
-        this.messageHeader = messageHeader;
+    public static int getDefaultPort() {
+        return DEFAULT_PORT;
     }
 
-    public T getMessageBody() {
-        return messageBody;
+    public static String getDefaultHost() {
+        return DEFAULT_HOST;
     }
 
-    public void setMessageBody(T messageBody) {
-        this.messageBody = messageBody;
+    public RpcHeader getHeader() {
+        return header;
+    }
+
+    public void setHeader(RpcHeader header) {
+        this.header = header;
+    }
+
+    public T getBody() {
+        return body;
+    }
+
+    public void setBody(T body) {
+        this.body = body;
     }
 }

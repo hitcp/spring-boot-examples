@@ -7,10 +7,19 @@ import java.lang.annotation.Target;
 
 /**
  * 使用方式类似 DubboReference
+ *
  * @author Shaoyu Liu
  * @date 2023-01-03
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface RpcReference {
+
+    /**
+     * 远程调用的服务版本号
+     *
+     * @return
+     */
+    String version() default "1.0.0";
+
 }

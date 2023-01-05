@@ -24,12 +24,12 @@ public class RpcClientHandler extends SimpleChannelInboundHandler<RpcProtocol<Rp
 
         RpcProtocol<RpcResponse> resProtocol = new RpcProtocol<>();
         RpcResponse response = new RpcResponse();
-        RpcHeader header = msg.getMessageHeader();
+        RpcHeader header = msg.getHeader();
         // 设置头部消息类型为响应
         header.setMessageType(RpcMessageTypeEnum.RESPONSE.getType());
         try {
-            RpcRequest rpcRequest = msg.getMessageBody();
-            Object bean = DELLocalServerCache.get(rpcRequest.getClassName());
+            RpcRequest rpcRequest = msg.getBody();
+            Object bean = ResponseCache.get(rpcRequest.getClassName());
             if (bean == null) {
                 throw new RuntimeException(String.format("service not exist: %s !", rpcRequest.getClassName()));
             }
@@ -38,8 +38,8 @@ public class RpcClientHandler extends SimpleChannelInboundHandler<RpcProtocol<Rp
             Object result = method.invoke(bean, rpcRequest.getParams());
             response.setData(result);
             header.setStatus(RpcMessageStatusEnum.SUCCESS.getCode());
-            resProtocol.setMessageHeader(header);
-            resProtocol.setMessageBody(response);
+            resProtocol.setHeader(header);
+            resProtocol.setBody(response);
         } catch (Throwable throwable) {
             header.setStatus(RpcMessageStatusEnum.FAIL.getCode());
             response.setMessage(throwable.toString());
