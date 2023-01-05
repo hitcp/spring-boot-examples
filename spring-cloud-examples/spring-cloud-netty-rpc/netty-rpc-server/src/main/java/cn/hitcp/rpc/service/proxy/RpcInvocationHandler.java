@@ -63,15 +63,7 @@ public class RpcInvocationHandler implements InvocationHandler {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         bootstrap.group(new NioEventLoopGroup())
                 .channel(NioSocketChannel.class)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel socketChannel) {
-                        socketChannel.pipeline()
-                                .addLast(new RpcDecoder())
-                                .addLast(new RpcEncoder())
-                                .addLast(new RpcServerInitializer());
-                    }
-                });
+                .handler(new RpcServerInitializer());
 
         // TCP 连接
         ChannelFuture channelFuture = bootstrap.connect(metadata.getAddress(), metadata.getPort()).sync();
