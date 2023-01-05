@@ -4,7 +4,7 @@ package cn.hitcp.rpc.service.serializable;
  * @author Shaoyu Liu
  * @date 2023-01-04
  */
-public interface Serializable {
+public interface RpcSerializable {
     /**
      * 序列化接口
      *

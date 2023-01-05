@@ -1,22 +1,28 @@
 package cn.hitcp.rpc.service.common;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import cn.hitcp.rpc.service.protocol.RpcProtocol;
 
 /**
  * @author Shaoyu Liu
  * @date 2023-01-04
  */
-@ConfigurationProperties(prefix = "cn.hitcp.server")
 public class RpcServerProperties {
-    private String host;
-    private Integer port;
+    private Integer port = RpcProtocol.DEFAULT_PORT;
+    private String registerUrl = "127.0.0.1:2181";
+    private String appName;
 
-    public String getHost() {
-        return host;
+//    static {
+//        port = RpcProtocol.DEFAULT_PORT;
+//        registerUrl = "127.0.0.1:2181";
+//    }
+
+    public RpcServerProperties(Integer port, String registerUrl, String appName) {
+        this.port = port;
+        this.registerUrl = registerUrl;
+        this.appName = appName;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public RpcServerProperties() {
     }
 
     public Integer getPort() {
@@ -25,5 +31,21 @@ public class RpcServerProperties {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public String getRegisterUrl() {
+        return registerUrl;
+    }
+
+    public void setRegisterUrl(String registerUrl) {
+        this.registerUrl = registerUrl;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 }

@@ -10,14 +10,17 @@ import java.io.ByteArrayOutputStream;
  * @author Shaoyu Liu
  * @date 2023-01-04
  */
-public class KryoSerializable implements Serializable {
+public class KryoSerializable implements RpcSerializable {
 
     @Override
     public <T> byte[] serializable(T t) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+
         Kryo kryo = new Kryo();
         Output output = new Output(os);
-        return kryo.writeClass(output, t.getClass()).toString().getBytes();
+        kryo.writeClass(output, t.getClass());
+
+        return os.toByteArray();
     }
 
     @Override

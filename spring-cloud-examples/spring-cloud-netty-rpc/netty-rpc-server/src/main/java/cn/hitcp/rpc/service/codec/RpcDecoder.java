@@ -1,7 +1,7 @@
 package cn.hitcp.rpc.service.codec;
 
 import cn.hitcp.rpc.service.common.RpcRequest;
-import cn.hitcp.rpc.service.serializable.Serializable;
+import cn.hitcp.rpc.service.serializable.RpcSerializable;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class RpcDecoder extends ByteToMessageDecoder {
 
-    private Serializable kryoSerializable;
+    private RpcSerializable kryoRpcSerializable;
 
-    public RpcDecoder(Serializable serializable) {
-        this.kryoSerializable = serializable;
+    public RpcDecoder(RpcSerializable rpcSerializable) {
+        this.kryoRpcSerializable = rpcSerializable;
     }
 
     public RpcDecoder() {
@@ -28,7 +28,7 @@ public class RpcDecoder extends ByteToMessageDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         // FIXME 数据反序列化编码
         byte b = in.readByte();
-        Object deserialize = kryoSerializable.deserialize(in.array(), RpcRequest.class);
+        Object deserialize = kryoRpcSerializable.deserialize(in.array(), RpcRequest.class);
         out.add(deserialize);
         ctx.flush();
     }
