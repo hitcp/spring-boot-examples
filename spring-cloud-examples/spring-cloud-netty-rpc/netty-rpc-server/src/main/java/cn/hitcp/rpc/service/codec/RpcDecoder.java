@@ -5,6 +5,8 @@ import cn.hitcp.rpc.service.serializable.RpcSerializable;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
@@ -14,21 +16,18 @@ import java.util.List;
  */
 public class RpcDecoder extends ByteToMessageDecoder {
 
-    private RpcSerializable kryoRpcSerializable;
+    private RpcSerializable rpcSerializable;
 
-    public RpcDecoder(RpcSerializable rpcSerializable) {
-        this.kryoRpcSerializable = rpcSerializable;
+    public RpcDecoder(@Autowired @Qualifier("kryoSerializable") RpcSerializable rpcSerializable) {
+        this.rpcSerializable = rpcSerializable;
     }
 
     public RpcDecoder() {
-
     }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        // FIXME 数据反序列化编码
-        byte b = in.readByte();
-        Object deserialize = kryoRpcSerializable.deserialize(in.array(), RpcRequest.class);
+        Object deserialize = rpcSerializable.deserialize(in.array(), RpcRequest.class);
         out.add(deserialize);
         ctx.flush();
     }
