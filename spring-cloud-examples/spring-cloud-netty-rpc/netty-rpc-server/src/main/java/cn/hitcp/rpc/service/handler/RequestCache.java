@@ -5,9 +5,9 @@ import java.util.Map;
 
 /**
  * @author Shaoyu Liu
- * @date 2023-01-04
+ * @date 2023-01-06
  */
-public class ResponseCache {
+public class RequestCache {
     private static final Map<String, Object> requestResponseMap = new HashMap<>();
 
     public static void store(String serverName, Object server) {
@@ -18,14 +18,14 @@ public class ResponseCache {
         return requestResponseMap.get(serverName);
     }
 
-    public static Object put(String serverName, Object data) {
-        return requestResponseMap.put(serverName, data);
+    public static Object put(long requestId, Object data) {
+        return requestResponseMap.put(String.valueOf(requestId), data);
     }
 
     public static Map<String, Object> getAll() {
         return requestResponseMap;
     }
 
-    private ResponseCache() {
+    private RequestCache() {
     }
 }

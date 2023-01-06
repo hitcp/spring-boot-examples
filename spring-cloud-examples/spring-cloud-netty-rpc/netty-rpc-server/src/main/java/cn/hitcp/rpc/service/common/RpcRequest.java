@@ -10,7 +10,7 @@ public class RpcRequest implements Serializable {
     /**
      * 请求全类名
      */
-    private String className;
+    private String serviceName;
     /**
      * 请求方法名
      */
@@ -25,12 +25,12 @@ public class RpcRequest implements Serializable {
     private Class<?>[] paramsTypes;
 
 
-    public String getClassName() {
-        return className;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public String getMethodName() {

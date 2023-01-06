@@ -62,6 +62,7 @@
         <apache-zookeeper.version>3.8.0</apache-zookeeper.version>
         <apache-poi.version>4.1.2</apache-poi.version>
         <apache-pdfbox.version>3.0.0-RC1</apache-pdfbox.version>
+        <apache-curator.version>5.4.0</apache-curator.version>
 
         <!-- maven插件依赖 -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
@@ -164,6 +165,31 @@
                 <artifactId>jest</artifactId>
                 <version>${searchbox-jest.version}</version>
             </dependency>
+
+
+            <!-- ZK -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${apache-curator.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${apache-curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-x-discovery</artifactId>
+                <version>${apache-curator.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -7,6 +7,7 @@ import cn.hitcp.rpc.service.protocol.RpcProtocol;
  * @date 2023-01-04
  */
 public class RpcServerProperties {
+    private String host = RpcProtocol.DEFAULT_HOST;
     private Integer port = RpcProtocol.DEFAULT_PORT;
     private String registerUrl = "127.0.0.1:2181";
     private String appName;
@@ -23,6 +24,14 @@ public class RpcServerProperties {
     }
 
     public RpcServerProperties() {
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public Integer getPort() {

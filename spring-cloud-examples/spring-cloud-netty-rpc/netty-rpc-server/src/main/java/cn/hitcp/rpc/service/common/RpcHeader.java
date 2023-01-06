@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 public class RpcHeader implements Serializable {
     byte magic;
+    byte version;
     long requestId;
     byte messageType;
     byte status;
@@ -19,6 +20,14 @@ public class RpcHeader implements Serializable {
 
     public void setMagic(byte magic) {
         this.magic = magic;
+    }
+
+    public byte getVersion() {
+        return version;
+    }
+
+    public void setVersion(byte version) {
+        this.version = version;
     }
 
     public long getRequestId() {

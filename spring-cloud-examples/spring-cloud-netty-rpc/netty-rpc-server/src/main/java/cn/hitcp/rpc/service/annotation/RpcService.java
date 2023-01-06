@@ -12,4 +12,15 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Inherited
 public @interface RpcService {
+    /**
+     * Interface class, default value is void.class
+     */
+    Class<?> interfaceClass() default void.class;
+
+    /**
+     * 远程调用的服务版本号
+     *
+     * @return
+     */
+    public String version() default "1.0.0";
 }

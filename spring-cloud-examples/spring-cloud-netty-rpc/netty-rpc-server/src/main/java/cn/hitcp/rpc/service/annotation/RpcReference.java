@@ -20,6 +20,8 @@ public @interface RpcReference {
      *
      * @return
      */
-    String version() default "1.0.0";
+    public String version() default "1.0.0";
+
+
 
 }
