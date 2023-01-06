@@ -1,6 +1,9 @@
 package cn.hitcp.rpc.service.serializable;
 
 /**
+ * 序列化反序列化
+ * 常见序列化案例：https://developer.aliyun.com/article/783611
+ *
  * @author Shaoyu Liu
  * @date 2023-01-04
  */
