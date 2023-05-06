@@ -11,6 +11,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-boot-mybatis-plus-examples</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+    </dependencies>
 
     
 </project>
