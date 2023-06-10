@@ -34,9 +34,8 @@
         <module>spring-boot-java8-examples</module>
         <module>spring-boot-algorithm-examples</module>
         <module>spring-boot-cache-examples</module>
-        <module>spring-boot-jms-examples</module>
-        <module>spring-boot-jdbc-examples</module>
-        <module>spring-boot-orm-examples</module>
+        <module>spring-boot-mybatis</module>
+        <module>spring-boot-mybatis-plus</module>
         <module>spring-boot-web-examples</module>
         <module>spring-cloud-alibaba-examples</module>
         <module>spring-cloud-examples</module>
