@@ -18,6 +18,13 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
         </dependency>
+        
+        <!-- mybatis-mapper :https://mvnrepository.com/artifact/io.mybatis/mybatis-mapper -->
+        <dependency>
+            <groupId>io.mybatis</groupId>
+            <artifactId>mybatis-mapper</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
     
     <build>
