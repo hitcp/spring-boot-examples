@@ -55,4 +55,13 @@ public interface BaseMapper<T> extends com.baomidou.mybatisplus.core.mapper.Base
      * 如果要自动填充，@Param(xx) xx参数名必须是 list/collection/array 3个的其中之一
      */
     int updateBatch(@Param("list") List<T> list);
+    
+    /**
+     * 批量插入 仅适用于mysql
+     *
+     * @param entityList 实体列表
+     * @return 影响行数
+     */
+    int insertBatchSomeColumn(List<T> entityList);
+
 }
