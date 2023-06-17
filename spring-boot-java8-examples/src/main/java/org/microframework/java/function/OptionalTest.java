@@ -3,7 +3,9 @@ package org.microframework.java.function;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -16,8 +18,8 @@ import java.util.Optional;
  */
 public class OptionalTest {
     
-    public void main(String[] args) {
-        Optional<String> stringOptional = Optional.ofNullable(null);
+    public static void main(String[] args) {
+/*        Optional<String> stringOptional = Optional.ofNullable(null);
 
         // 1.（过滤） 符合条件取原值，不符合条件取orElse
         System.out.println(stringOptional.filter((value) -> value.length() > 10).orElse("The name is less than 6 characters"));
@@ -32,7 +34,7 @@ public class OptionalTest {
         // 3.2存在即返回，不存在给定默认值
         System.out.println(stringOptional.orElse("默认值"));
         // 3.3存在就执行Consumer函数
-        stringOptional.ifPresent(System.out::println);
+        stringOptional.ifPresent(System.out::println);*/
         
         
         // 嵌套取值
@@ -47,7 +49,18 @@ public class OptionalTest {
 //                }
 //            }
 //        }
-
+        // 注意：1.不能识别  map的empty  ；可拓展 OptionalCollection
+        Map<String, String> hashMap = new HashMap<>();
+        Map<String, String> hashMap2 = new HashMap<>();
+        hashMap2.put("k1", "v1");
+        System.out.println(Optional.ofNullable(hashMap).orElse(hashMap2));
+        
+        // 注意：2.不能识别  list的empty
+        List<String> strings = new ArrayList<>();
+        List<String> strings2 = new ArrayList<>();
+        strings2.add("l1");
+        System.out.println(Optional.ofNullable(strings).orElse(strings2));
+        
     }
     
     
