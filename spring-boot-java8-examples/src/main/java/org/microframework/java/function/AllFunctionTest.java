@@ -49,7 +49,7 @@ public class AllFunctionTest {
         UnaryOperator<Object> unaryOperator = s -> s;
 
         /* 1. 入参：对象1，对象2；返回：对象1或对象2  */
-        BinaryOperator<Object> binaryOperator = (s, t) -> {  return s;};
+        BinaryOperator<Object> binaryOperator = (s, t) -> s;
 
     }
 }
