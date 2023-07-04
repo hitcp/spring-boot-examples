@@ -1,0 +1,78 @@
+一、pom依赖：
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-jcs3</artifactId>
+    <version>3.1</version>
+</dependency>
+
+
+二、src/main/resources/新建配置文件cache.ccf
+# 默认的缓存区域
+jcs.default=
+jcs.default.cacheattributes=org.apache.commons.jcs3.engine.CompositeCacheAttributes
+# 区域最多存储1000个对象
+jcs.default.cacheattributes.MaxObjects=1000
+# 缓存策略为LRU
+jcs.default.cacheattributes.MemoryCacheName=org.apache.commons.jcs3.engine.memory.lru.LRUMemoryCache
+jcs.default.cacheattributes.UseMemoryShrinker=false
+# 内存最大闲置3600秒
+jcs.default.cacheattributes.MaxMemoryIdleTimeSeconds=3600
+jcs.default.cacheattributes.ShrinkerIntervalSeconds=60
+jcs.default.elementattributes=org.apache.commons.jcs3.engine.ElementAttributes
+# 元素是否为永久元素
+jcs.default.elementattributes.IsEternal=false
+# 元素最大存活时间为21600秒
+jcs.default.elementattributes.MaxLife=21600
+ # 元素最大闲置时间为1800秒
+jcs.default.elementattributes.IdleTime=1800
+# 元素是否存到磁盘上
+jcs.default.elementattributes.IsSpool=true
+# 元素是否存到远程服务器
+jcs.default.elementattributes.IsRemote=true
+# 元素是否发送到其他节点
+jcs.default.elementattributes.IsLateral=true
+
+# 预定义的缓存区域
+jcs.region.testCache1=DC
+jcs.region.testCache1.cacheattributes=org.apache.commons.jcs3.engine.CompositeCacheAttributes
+jcs.region.testCache1.cacheattributes.MaxObjects=1000
+jcs.region.testCache1.cacheattributes.MemoryCacheName=org.apache.commons.jcs3.engine.memory.lru.LRUMemoryCache
+jcs.region.testCache1.cacheattributes.UseMemoryShrinker=false
+jcs.region.testCache1.cacheattributes.MaxMemoryIdleTimeSeconds=3600
+jcs.region.testCache1.cacheattributes.ShrinkerIntervalSeconds=60
+jcs.region.testCache1.cacheattributes.MaxSpoolPerRun=500
+jcs.region.testCache1.elementattributes=org.apache.commons.jcs3.engine.ElementAttributes
+jcs.region.testCache1.elementattributes.IsEternal=false
+
+
+三、使用（ElementAttributes负责具体参数，可省略，缺省值为配置中的参数）
+try {
+    // 获取指定区域的缓存
+    final CacheAccess<String, Student> cache = JCS.getInstance("default");
+
+    // 向缓存中加入元素，使用区域的默认属性
+    Student student = new Student("zs", 20, 1);
+    cache.put(student.getName(), student);
+
+    // 向缓存中加入元素，并设置元素的属性
+    final ElementAttributes elementAttributes = new ElementAttributes();
+    // 设置最大有效时间为一小时
+    elementAttributes.setMaxLife(3600);
+    // 设置最大闲置时间为10分钟
+    elementAttributes.setIdleTime(600);
+    cache.put(student.getName(), student, elementAttributes);
+
+    // 从缓存中读取数据
+    final Student student1 = cache.get("zs");
+    System.out.println(student1);
+    System.out.println(student == student1);
+
+    // 关闭缓存
+    JCS.shutdown();
+
+} catch (CacheException e) {
+    e.printStackTrace();
+}
+
+参考地址：
+https://zhuanlan.zhihu.com/p/377717698
