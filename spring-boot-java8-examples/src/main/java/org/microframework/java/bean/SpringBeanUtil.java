@@ -9,10 +9,24 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 /**
+ * 对象、集合拷贝
+ *
  * @author Shaoyu Liu
  * @date 2021/11/10 17:20
+ * @see BeanUtils
  **/
-public class SpringBeanUtil extends BeanUtils {
+public class SpringBeanUtil {
+
+
+    /**
+     * 拷贝对象
+     *
+     * @param source 数据源对象
+     * @param target 目标对象
+     */
+    public static void copyProperties(Object source, Object target) {
+        BeanUtils.copyProperties(source, target);
+    }
 
     /**
      * 集合数据的拷贝

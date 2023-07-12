@@ -8,6 +8,13 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
+/**
+ * 对象、集合拷贝
+ *
+ * @author Shaoyu Liu
+ * @date 2021/11/10 17:20
+ * @see BeanCopier
+ **/
 public class CglibBeanUtil {
 
     /**
