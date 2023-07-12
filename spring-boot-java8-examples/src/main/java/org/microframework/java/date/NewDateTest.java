@@ -3,6 +3,7 @@ package org.microframework.java.date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.util.Date;
 
 /**
  * @author Shaoyu Liu
@@ -10,6 +11,19 @@ import java.time.temporal.ChronoField;
  */
 public class NewDateTest {
     public static void main(String[] args) {
+
+        // LocalDateTime 转 String
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
+        // String 转 LocalDateTime
+        LocalDateTime.parse("2023-06-06 15:28:39", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+
+        // LocalDateTime 转 Date
+        Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        // Date 转 LocalDateTime
+        LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault());
+
+
         LocalDate localDate = LocalDate.of(2022,02,02);
         String s1 = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
         String s2 = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);

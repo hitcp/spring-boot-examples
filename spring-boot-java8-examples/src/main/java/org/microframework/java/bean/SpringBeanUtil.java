@@ -5,13 +5,15 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 /**
  * @author Shaoyu Liu
  * @date 2021/11/10 17:20
  **/
-public class IBeanUtil extends BeanUtils {
+public class SpringBeanUtil extends BeanUtils {
+
     /**
      * 集合数据的拷贝
      *
@@ -23,7 +25,6 @@ public class IBeanUtil extends BeanUtils {
         return copyListProperties(sources, target, null);
     }
 
-
     /**
      * 带回调函数的集合数据的拷贝（可自定义字段拷贝规则）
      *
@@ -32,7 +33,7 @@ public class IBeanUtil extends BeanUtils {
      * @param callBack: 回调函数
      * @return
      */
-    public static <S, T> List<T> copyListProperties(List<S> sources, Supplier<T> target, IBeanUtilCallBack<S, T> callBack) {
+    public static <S, T> List<T> copyListProperties(List<S> sources, Supplier<T> target, BiConsumer<S, T> callBack) {
         List<T> list = new ArrayList<>(sources.size());
         for (S source : sources) {
             T t = target.get();
@@ -40,7 +41,7 @@ public class IBeanUtil extends BeanUtils {
             list.add(t);
             if (callBack != null) {
                 // 回调
-                callBack.callBack(source, t);
+                callBack.accept(source, t);
             }
         }
         return list;
@@ -54,7 +55,6 @@ public class IBeanUtil extends BeanUtils {
      * @return
      */
     public static <S, T> List<T> copyListBean(List<S> sources, Class<T> target) {
-
         List<T> targets = new ArrayList<>();
         if (CollectionUtils.isEmpty(sources)) {
             return targets;
@@ -64,7 +64,6 @@ public class IBeanUtil extends BeanUtils {
         }
         return targets;
     }
-
 
     /**
      * 对象属性拷贝
@@ -82,5 +81,8 @@ public class IBeanUtil extends BeanUtils {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    private SpringBeanUtil() {
     }
 }
