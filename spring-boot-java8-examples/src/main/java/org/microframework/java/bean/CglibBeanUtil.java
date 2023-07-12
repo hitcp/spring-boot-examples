@@ -16,7 +16,7 @@ public class CglibBeanUtil {
      * @param source 数据源对象
      * @param target 目标对象
      */
-    public static void copy(Object source, Object target) {
+    public static void copyProperties(Object source, Object target) {
         BeanCopier.create(source.getClass(), target.getClass(), false).copy(source, target, null);
     }
 
@@ -52,7 +52,7 @@ public class CglibBeanUtil {
         List<T> list = new ArrayList<>(sources.size());
         for (S source : sources) {
             T t = target.get();
-            copy(source, t);
+            copyProperties(source, t);
             list.add(t);
             if (callBack != null) {
                 // 回调
@@ -68,9 +68,11 @@ public class CglibBeanUtil {
 
 
     public static void main(String[] args) {
+        // fixme 复制object好像不行，必须复制具体的entity
         Object source = new Object();
         Object target = new Object();
 
+        CglibBeanUtil.copyProperties(source, target);
         BeanCopier.create(Object.class, Object.class, false).copy(source, target, null);
 
         BeanCopier.create(Object.class, Object.class, true).copy(source, target, new Converter() {
