@@ -10,9 +10,14 @@ import java.util.function.Supplier;
 
 public class CglibBeanUtil {
 
+    /**
+     * 拷贝对象
+     *
+     * @param source 数据源对象
+     * @param target 目标对象
+     */
     public static void copy(Object source, Object target) {
-        BeanCopier copier = BeanCopier.create(source.getClass(), target.getClass(), false);
-        copier.copy(source, target, null);
+        BeanCopier.create(source.getClass(), target.getClass(), false).copy(source, target, null);
     }
 
 //    public static <T> T copy(Object source, Supplier<T> type, Class<T> clazz) {
