@@ -10,7 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * @author Shaoyu Liu
  * @date 2022-09-28
  */
-public class JsonUtil {
+public class ObjectUtil {
 
     private static final ObjectMapper MAPPER;
 
@@ -56,7 +56,7 @@ public class JsonUtil {
     /**
      * 私有化
      */
-    private JsonUtil() {
+    private ObjectUtil() {
     }
 
 
