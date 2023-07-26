@@ -1,29 +1,27 @@
 package org.microframework.java.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.microframework.java.entity.User;
-import org.springframework.util.ObjectUtils;
-
-import java.util.ArrayList;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
- * @author Shaoyu Liu --- website: <a href="http://hitcp.cn">Hi TCP</a>
+ * @author Shaoyu Liu
  * @date 2022-09-28
  */
-public class ObjectUtil extends ObjectUtils {
+public class JsonUtil {
 
-    /**
-     * 将Object（String）类转换为指定实体类对象
-     *
-     * @param source 源数据json串或者Object对象
-     * @param target 目标实体类，如：User.class，Group.class
-     * @param <T>
-     * @return
-     */
-//    public static <T> T convertObject(Object source, Class<T> target) {
-//        return new ObjectMapper().convertValue(source, target);
-//    }
+    private static final ObjectMapper MAPPER;
+
+    static {
+        MAPPER = new ObjectMapper()
+                // null不参加序列化
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                // 支持java8的DateApi
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .registerModule(new JavaTimeModule());
+    }
 
     /**
      * 将Object（String）类转换为指定类型，兼容上方的convertObject()方法
@@ -33,12 +31,10 @@ public class ObjectUtil extends ObjectUtils {
      *                        1.可以转为自定义类型，如：User.class，Group.class
      *                        2.也可以转为jdk类型，如：HashMap.class，ArrayList.class，LinkedList.class
      * @param <T>
-     * @return
-     * @throws JsonProcessingException
      */
     public static <T> T convertObject(Object source, Class<T> targetClassType) {
         try {
-            return new ObjectMapper().readValue(source.toString(), targetClassType);
+            return MAPPER.readValue(source.toString(), targetClassType);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -48,33 +44,23 @@ public class ObjectUtil extends ObjectUtils {
      * 将数据转换为json字符串
      *
      * @param source 传入源数据，如：user，userList，userMap
-     * @return
      */
     public static String convertJson(Object source) {
         try {
-            return new ObjectMapper().writeValueAsString(source);
+            return MAPPER.writeValueAsString(source);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private ObjectUtil() {
+    /**
+     * 私有化
+     */
+    private JsonUtil() {
     }
 
-//    public static void main(String[] args) {
-//        // 测试转换json为自定义对象
-//        Object jsonObject = "{\"id\":1,\"name\":\"张小明\"}";
-//        User user = ObjectUtil.convertObject(jsonObject, User.class);
-//        System.out.println(user);
-//
-//        // 测试转换json为ArrayList
-//        Object jsonList = "[{\"id\":1,\"name\":\"张小明\"},{\"id\":2,\"name\":\"张小明2\"},{\"id\":3,\"name\":\"张小明3\"}]";
-//        ArrayList<User> arrayList = ObjectUtil.convertObject(jsonList, ArrayList.class);
-//        System.out.println(arrayList);
-//        // 测试ArrayList转json
-//        System.out.println(convertJson(arrayList));
-//
-//    }
 
 }
+
+
 

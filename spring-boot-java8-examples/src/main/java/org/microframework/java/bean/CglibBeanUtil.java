@@ -27,12 +27,11 @@ public class CglibBeanUtil {
         BeanCopier.create(source.getClass(), target.getClass(), false).copy(source, target, null);
     }
 
-//    public static <T> T copy(Object source, Supplier<T> type, Class<T> clazz) {
-//        BeanCopier copier = BeanCopier.create(source.getClass(), clazz, false);
-////        T t = clazz.newInstance();
-//        T target = type.get();
-//        copier.copy(source, target, null);
-//        return target;
+//    public static <T> T copyProperties(Object source, Supplier<T> target) {
+//        T t = target.get();
+//        BeanCopier copier = BeanCopier.create(source.getClass(), t.getClass(), false);
+//        copier.copy(source, t, null);
+//        return t;
 //    }
 
     /**
