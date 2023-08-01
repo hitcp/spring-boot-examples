@@ -1,4 +1,4 @@
-package config;
+package way1tomcat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +16,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * ws://localhost:8080/websocket/123
+ * 访问地址： ws://localhost:8080/websocket/123
  * <p>
- * 2023-07-31 17:04:14.488  INFO 88696 --- [nio-8080-exec-3] config.ProjectConsoleWs                  : 客户端程序123建立连接成功!------>当前在线人数为：1
- * 2023-07-31 17:04:17.769  INFO 88696 --- [nio-8080-exec-2] config.ProjectConsoleWs                  : 客户端程序123断开连接成功!------>当前在线人数为：0
+ * 2023-08-01 09:43:55.151  INFO 11072 --- [nio-8080-exec-2] way1.TomcatWebsocketService              : 客户端程序123建立连接成功!------>当前在线人数为：1
+ * 2023-08-01 09:44:35.970  WARN 11072 --- [nio-8080-exec-1] way1.TomcatWebsocketService              : 客户端程序123已有连接,无需建立连接
+ * 2023-08-01 09:46:56.802  INFO 11072 --- [nio-8080-exec-4] way1.TomcatWebsocketService              : 客户端程序123断开连接成功!------>当前在线人数为：0
  *
  * @author Shaoyu Liu
  * @date 2023/7/31
@@ -27,9 +28,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @ServerEndpoint("/websocket/{sessionId}")
-public class WebsocketService {
-    public static final Logger log = LoggerFactory.getLogger(WebsocketService.class);
-    public static WebsocketService service = new WebsocketService();
+public class TomcatWebsocketService {
+    public static final Logger log = LoggerFactory.getLogger(TomcatWebsocketService.class);
+    public static TomcatWebsocketService service = new TomcatWebsocketService();
     /**
      * 存放所有在线的客户端 [sessionId, session]
      */
