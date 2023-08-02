@@ -52,6 +52,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
 
         <!-- Spring依赖-->
+        <spring-boot.version>2.7.6</spring-boot.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
 
@@ -81,6 +82,14 @@
     <dependencyManagement>
         <dependencies>
             <!-- Spring依赖-->
+            <!-- 不使用parent的话可以使用这个依赖管理版本，但是要手动指定编码格式，jdk版本以及一些插件配置等 -->
+<!--            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
