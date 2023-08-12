@@ -1,6 +1,5 @@
 package org.microframework.java.util.validate;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -28,6 +27,5 @@ public class User implements Serializable {
      */
     private BigDecimal amount;
 
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
