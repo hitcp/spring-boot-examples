@@ -20,6 +20,9 @@ public class NewDateTest {
 
         // LocalDateTime 转 Date
         Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        // LocalDate 转 Date
+        Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+
         // Date 转 LocalDateTime
         LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault());
 
