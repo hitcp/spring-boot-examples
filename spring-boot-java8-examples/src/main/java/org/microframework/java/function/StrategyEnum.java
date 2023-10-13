@@ -18,8 +18,8 @@ public enum StrategyEnum {
     /**
      * 枚举值
      */
-    SHOULD_PAY(1, "描述1", StrategyInterfaceImpl1.class, StrategyInterface::method),
-    REALLY_PAY(2, "描述2", StrategyInterfaceImpl2.class, StrategyInterface::method);
+    ENUM_VALUE_1(1, "描述1", StrategyInterfaceImpl1.class, StrategyInterface::method),
+    ENUM_VALUE_2(2, "描述2", StrategyInterfaceImpl2.class, StrategyInterface::method);
 
     private final Integer code;
 
@@ -40,7 +40,7 @@ public enum StrategyEnum {
 
 
     public static void main(String[] args) {
-        System.out.println(SHOULD_PAY.calculate(BigDecimal.valueOf(1)));
+        System.out.println(ENUM_VALUE_1.calculate(BigDecimal.valueOf(1)));
     }
 
 }
