@@ -30,12 +30,13 @@ public enum StrategyEnum {
     private final BiFunction<StrategyInterface, BigDecimal, BigDecimal> biFunctionAction;
 
     public BigDecimal calculate(BigDecimal salary) {
-        try {
-            return biFunctionAction.apply(impl.newInstance(), salary);
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return BigDecimal.ZERO;
+        return biFunctionAction.apply(SpringContextUtil3.getBean(impl), salary);
+//        try {
+//            return biFunctionAction.apply(impl.newInstance(), salary);
+//        } catch (InstantiationException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return BigDecimal.ZERO;
     }
 
 
