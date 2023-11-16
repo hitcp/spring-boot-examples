@@ -3,6 +3,7 @@ package org.microframework.java.date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 /**
@@ -11,6 +12,13 @@ import java.util.Date;
  */
 public class NewDateTest {
     public static void main(String[] args) {
+
+        LocalDate departMonth = LocalDate.parse("2023-10",DateTimeFormatter.ofPattern("yyyy-MM"));
+        // 获取当前月的第一天
+        LocalDate firstDay = departMonth.with(TemporalAdjusters.firstDayOfMonth());
+        // 获取当前月的最后一天
+        LocalDate lastDay = departMonth.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.println("================");
 
         // LocalDateTime 转 String
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
