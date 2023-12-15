@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
+ * 编码利用 netty 的 MessageToByteEncoder 类实现。实现 encode 方法，MessageToByteEncoder 继承 ChannelOutboundHandlerAdapter 。
+ * 编码就是将请求数据写入到 ByteBuf 中。
+ *
  * @author Shaoyu Liu
  * @date 2023-01-03
  */

@@ -40,7 +40,9 @@ public class NettyClient {
         });
     }
 
-
+    /**
+     * 网络传输，使用netty,代码固定的，值得注意的是 handler 的顺序不能弄错，编码是出站操作（可以放在入站后面），解码和收到响应都是入站操作，解码要在前面。
+     */
     private static void initClient() {
         clientHandler = new NettyClientHandler();
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -54,8 +56,11 @@ public class NettyClient {
                                 @Override
                                 protected void initChannel(SocketChannel ch) throws Exception {
                                     ChannelPipeline pipeline = ch.pipeline();
+                                    // 编码 是出站操作 将消息编写二进制
                                     pipeline.addLast(new StringDecoder());
+                                    // 解码 是入站操作 将二进制解码成消息
                                     pipeline.addLast(new StringEncoder());
+                                    // 接收响应 入站操作
                                     pipeline.addLast(clientHandler);
                                 }
                             }

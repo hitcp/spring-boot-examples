@@ -1,56 +1,61 @@
 package cn.hitcp.rpc.service.common;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
+ * +-------------------------------------------------------------------------------------+
+ * | 魔数 2byte | 协议版本号 1byte | 序列化算法 1byte | 报文类型 1byte     |
+ * +-------------------------------------------------------------------------------------+
+ * | 状态 1byte | 消息 ID 32byte  | 数据长度 4byte  | 数据内容 （长度不定） |
+ * +-------------------------------------------------------------------------------------+
+ * <p>
+ * 魔数：魔数是通信双方协商的一个暗号，通常采用固定的几个字节表示。魔数的作用是防止任何人随便向服务器的端口上发送数据。 例如 java Class 文件开头就存储了魔数 0xCAFEBABE，在加载 Class 文件时首先会验证魔数的正确性
+ * <p>
+ * 协议版本号：随着业务需求的变化，协议可能需要对结构或字段进行改动，不同版本的协议对应的解析方法也是不同的。
+ * <p>
+ * 序列化算法：序列化算法字段表示数据发送方应该采用何种方法将请求的对象转化为二进制，以及如何再将二进制转化为对象，如 JSON、Hessian、Java 自带序列化等。
+ * <p>
+ * 报文类型： 在不同的业务场景中，报文可能存在不同的类型。RPC 框架中有请求、响应、心跳等类型的报文。
+ * <p>
+ * 状态： 状态字段用于标识请求是否正常（SUCCESS、FAIL）。
+ * <p>
+ * 消息ID： 请求唯一ID，通过这个请求ID将响应关联起来，也可以通过请求ID做链路追踪。
+ * <p>
+ * 数据长度： 标明数据的长度，用于判断是否是一个完整的数据包
+ * <p>
+ * 数据内容： 请求体内容
+ *
  * @author Shaoyu Liu
  * @date 2023-01-04
  */
+@Data
 public class RpcHeader implements Serializable {
+
+    /**
+     * 魔数：魔数是通信双方协商的一个暗号，通常采用固定的几个字节表示。魔数的作用是防止任何人随便向服务器的端口上发送数据。 例如 java Class 文件开头就存储了魔数 0xCAFEBABE，在加载 Class 文件时首先会验证魔数的正确性
+     */
     byte magic;
+
+    /**
+     * 协议版本号：随着业务需求的变化，协议可能需要对结构或字段进行改动，不同版本的协议对应的解析方法也是不同的。
+     */
     byte version;
+
+    /**
+     * 消息 ID：请求唯一ID，通过这个请求ID将响应关联起来，也可以通过请求ID做链路追踪。
+     */
     long requestId;
+
+    /**
+     * 报文类型：在不同的业务场景中，报文可能存在不同的类型。RPC 框架中有请求、响应、心跳等类型的报文。
+     */
     byte messageType;
+
+    /**
+     * 状态：状态字段用于标识请求是否正常（SUCCESS、FAIL）。
+     */
     byte status;
 
-
-    public byte getMagic() {
-        return magic;
-    }
-
-    public void setMagic(byte magic) {
-        this.magic = magic;
-    }
-
-    public byte getVersion() {
-        return version;
-    }
-
-    public void setVersion(byte version) {
-        this.version = version;
-    }
-
-    public long getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(long requestId) {
-        this.requestId = requestId;
-    }
-
-    public byte getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(byte messageType) {
-        this.messageType = messageType;
-    }
-
-    public byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(byte status) {
-        this.status = status;
-    }
 }

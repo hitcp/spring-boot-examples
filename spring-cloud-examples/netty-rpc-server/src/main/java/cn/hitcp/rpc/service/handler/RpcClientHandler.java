@@ -29,9 +29,9 @@ public class RpcClientHandler extends SimpleChannelInboundHandler<RpcProtocol<Rp
         header.setMessageType(RpcMessageTypeEnum.RESPONSE.getType());
         try {
             RpcRequest rpcRequest = msg.getBody();
-            Object bean = ResponseCache.get(rpcRequest.getClassName());
+            Object bean = ResponseCache.get(rpcRequest.getServiceName());
             if (bean == null) {
-                throw new RuntimeException(String.format("service not exist: %s !", rpcRequest.getClassName()));
+                throw new RuntimeException(String.format("service not exist: %s !", rpcRequest.getServiceName()));
             }
             // 反射调用
             Method method = bean.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamsTypes());

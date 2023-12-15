@@ -1,13 +1,17 @@
 package cn.hitcp.rpc.service.protocol;
 
 import cn.hitcp.rpc.service.common.RpcHeader;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
+ * 自定义RPC协议，就是通信双方事先商量好规则，服务端知道发送过来的数据将如何解析
+ *
  * @author Shaoyu Liu
  * @date 2023-01-03
  */
+@Data
 public class RpcProtocol<T> implements Serializable {
     public static final String NAME = "rpc";
 
@@ -24,34 +28,5 @@ public class RpcProtocol<T> implements Serializable {
      * 消息体
      */
     private T body;
-
-    public static String getNAME() {
-        return NAME;
-    }
-
-    public static int getDefaultPort() {
-        return DEFAULT_PORT;
-    }
-
-    public static String getDefaultHost() {
-        return DEFAULT_HOST;
-    }
-
-    public RpcHeader getHeader() {
-        return header;
-    }
-
-    public void setHeader(RpcHeader header) {
-        this.header = header;
-    }
-
-    public T getBody() {
-        return body;
-    }
-
-    public void setBody(T body) {
-        this.body = body;
-    }
-
 
 }
