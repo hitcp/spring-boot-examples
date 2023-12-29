@@ -2,9 +2,16 @@ package org.microframework.java.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.util.Assert;
+
+import java.util.Objects;
 
 /**
  * @author Shaoyu Liu
@@ -48,6 +55,64 @@ public class ObjectUtil {
     public static String convertJson(Object source) {
         try {
             return MAPPER.writeValueAsString(source);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * ObjectNode 转换为指定的 java对象集合
+     *
+     * @param objectNode
+     * @param key
+     * @param <T>
+     * @return
+     */
+    public static <T> T convertList(ObjectNode objectNode, String key, TypeReference<T> toValueTypeRef) {
+        Assert.notNull(key, "key cannot be null");
+        ArrayNode arrayNode = objectNode.withArray(key);
+        if (Objects.isNull(arrayNode)) {
+            return null;
+        }
+        // 不传入具体类型 list默认返回中的List<LinkedHashMap>类型，所以要把toValueTypeRef参数传进来
+        return MAPPER.convertValue(arrayNode, toValueTypeRef);
+    }
+
+    /**
+     * JsonNode 转换成 java 对象
+     *
+     * @param treeNode
+     * @param valueType
+     * @param <T>
+     * @return
+     */
+    public static <T> T treeToValue(JsonNode treeNode, Class<T> valueType) {
+        try {
+            return MAPPER.treeToValue(treeNode, valueType);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * java 对象转换成 JsonNode
+     *
+     * @param object
+     * @return
+     */
+    public static JsonNode treeToValue(Object object) {
+        return MAPPER.valueToTree(object);
+    }
+
+    /**
+     * ObjectNode 转换成 JsonNode
+     *
+     * @param personNode
+     * @return
+     */
+    public static JsonNode readTree(ObjectNode personNode) {
+        try {
+            return MAPPER.readTree(personNode.toString());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
