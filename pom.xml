@@ -40,6 +40,7 @@
         <module>spring-cloud-alibaba-examples</module>
         <module>spring-cloud-examples</module>
         <module>spring-boot-dynamic-tp</module>
+        <module>spring-statemachine</module>
     </modules>
 
     <properties>
