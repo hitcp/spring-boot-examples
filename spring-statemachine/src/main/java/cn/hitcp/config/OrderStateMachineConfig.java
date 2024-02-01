@@ -122,10 +122,12 @@ public class OrderStateMachineConfig extends EnumStateMachineConfigurerAdapter<O
             public void write(StateMachineContext<OrderStatus, OrderStatusChangeEvent> context, Order order) throws Exception {
                 //此处并没有进行持久化操作
                 order.setStatus(context.getState());
+                System.out.println("状态变更持久化到数据库订单:" + order);
             }
 
             @Override
             public StateMachineContext<OrderStatus, OrderStatusChangeEvent> read(Order order) throws Exception {
+                System.out.println("读取数据库订单状态为:" + order);
                 //此处直接获取order中的状态，其实并没有进行持久化读取操作
                 StateMachineContext<OrderStatus, OrderStatusChangeEvent> result = new DefaultStateMachineContext<>(order.getStatus(), null, null, null, null, orderStateMachineId);
                 return result;
