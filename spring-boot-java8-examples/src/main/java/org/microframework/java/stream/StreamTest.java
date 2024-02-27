@@ -62,10 +62,21 @@ public class StreamTest {
 
 
         /*
-        并发流，集合安全需要手动实现
+        并发流，集合安全需要手动实现,
         parallelStream + Object锁 50万数据以上会和stream效率相同
          */
         long parallelStreamStart = System.currentTimeMillis();
+
+
+        /*   一、添加元素发生越界异常
+        在并发情况下，如果同时有A、B两个线程同时执行add，在第一步ensureCapacityInternal校验数组容量时，
+        A、B线程都发现当前容量还可以添加最有一个元素，不需扩容；
+        因此进入第二步，此时，A线程先执行完，数组容量已满，然后B线程再对elementData赋值时，就会抛出“ArrayIndexOutOfBoundsException”
+        解决方式：
+            1.使用stream list或foreach(迭代器模式)
+            2.使用CopyOnWriteArrayList
+            3.加锁
+         */
         List<Integer> numbers2 = new ArrayList<>();
 
         numbers.parallelStream().forEach(number -> {
